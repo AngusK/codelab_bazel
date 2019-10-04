@@ -1,11 +1,4 @@
-filegroup(
-    name = "srcs",
-    srcs = glob(["*.py"]) + [
-        "BUILD",
-        "//examples/py/fibonacci:srcs",
-    ],
-    visibility = ["//examples:__pkg__"],
-)
+package(default_visibility = ["//examples/py:__subpackages__"])
 
 py_binary(
     name = "bin",
