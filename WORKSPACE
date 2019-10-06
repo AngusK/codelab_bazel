@@ -2,7 +2,6 @@ workspace(name = "bazel_tutorial")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 #####################
 #### Rule Docker ####
 #####################
@@ -21,16 +20,17 @@ http_archive(
 # docker_toolchain_configure with a custom attr; please read the toolchains
 # docs in /toolchains/docker/ before blindly adding this to your WORKSPACE.
 # BEGIN OPTIONAL segment:
-load("@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
-    docker_toolchain_configure="toolchain_configure"
-)
-docker_toolchain_configure(
-  name = "docker_config",
-  # OPTIONAL: Path to a directory which has a custom docker client config.json.
-  # See https://docs.docker.com/engine/reference/commandline/cli/#configuration-files
-  # for more details.
-  client_config="<enter absolute path to your docker config directory here>",
-)
+#load("@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
+#    docker_toolchain_configure="toolchain_configure"
+#)
+
+#docker_toolchain_configure(
+#  name = "docker_config",
+#  # OPTIONAL: Path to a directory which has a custom docker client config.json.
+#  # See https://docs.docker.com/engine/reference/commandline/cli/#configuration-files
+#  # for more details.
+#  client_config="<enter absolute path to your docker config directory here>",
+#)
 # End of OPTIONAL segment.
 
 load(
@@ -41,14 +41,28 @@ container_repositories()
 
 # This is NOT needed when going through the language lang_image
 # "repositories" function(s).
-load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+#load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
 
-container_deps()
+#container_deps()
+
+#load(
+#    "@io_bazel_rules_docker//container:container.bzl",
+#    "container_pull",
+#)
 
 load(
-    "@io_bazel_rules_docker//container:container.bzl",
-    "container_pull",
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
+    container_repositories = "repositories",
 )
+
+container_repositories()
+
+load(
+    "@io_bazel_rules_docker//python3:image.bzl",
+    _py3_image_repos = "repositories",
+)
+
+_py3_image_repos()
 
 
 #####################
@@ -57,8 +71,7 @@ load(
 git_repository(
   name = "rules_python",
   remote = "https://github.com/bazelbuild/rules_python.git",
-  # NOT VALID!  Replace this with a Git commit SHA.
-  commit = "{HEAD}",
+  commit = "e953b0ad875b6b5dc786b71d431775a7daf75607",
 )
 
 # This call should always be present.
@@ -68,3 +81,5 @@ py_repositories()
 # This one is only needed if you're using the packaging rules.
 load("@rules_python//python:pip.bzl", "pip_repositories")
 pip_repositories()
+
+
