@@ -49,7 +49,7 @@ py3_image(
 
 container_push(
     name = "push_bin_image",
-    image = ":example_image",
+    image = ":bin_image",
     format = "Docker",
     registry = "localhost:5000",
     repository = "codelab_bazel/py_example_image",
@@ -65,7 +65,7 @@ py3_image(
 
 container_push(
     name = "push_fail_image",
-    image = ":example_fail_image",
+    image = ":fail_image",
     format = "Docker",
     registry = "localhost:5000",
     repository = "codelab_bazel/py_example_fail_image",
