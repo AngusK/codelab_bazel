@@ -1,7 +1,9 @@
 # bazel auto-generated dirs.
-bazel-bazel_tutorial
 bazel-bin
+bazel-codelab_bazel
 bazel-genfiles
 bazel-out
 bazel-testlogs
 
+# vim buffers
+*.swp
