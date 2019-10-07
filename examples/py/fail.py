@@ -1,6 +1,6 @@
 """A tiny example binary for the native Python rules of Bazel."""
 import unittest
-from codelab_bazel.examples.py.lib import GetNumber
+from bazel_tutorial.examples.py.lib import GetNumber
 
 
 class TestGetNumber(unittest.TestCase):
