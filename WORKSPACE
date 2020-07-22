@@ -3,7 +3,6 @@ workspace(name = "bazel_tutorial")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-
 http_archive(
     name = "bazel_skylib",
     sha256 = "97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
@@ -42,23 +41,36 @@ rules_python()
 
 load("@bazel_federation//setup:rules_python.bzl", "rules_python_setup")
 
-rules_python_setup(use_pip = True)
+# pip rules will be supported by rules_pip later.
+rules_python_setup(use_pip = False)
 
 ##############################################
 #### PIP for Python Package installation #####
 ##############################################
-load("@rules_python//python:pip.bzl", "pip3_import")
+# rules_pip is compatible with almost all python packages.
+# The pip rules provided by rules_python are not used here because
+# they do not take care of package namespace properly and caused
+# many issues.
+http_archive(
+    name = "com_github_ali5h_rules_pip",
+    sha256 = "630a7cab43a87927353efca116d20201df88fb443962bf01c7383245c7f3a623",
+    strip_prefix = "rules_pip-3.0.0",
+    urls = ["https://github.com/ali5h/rules_pip/archive/3.0.0.tar.gz"],
+)
+
+load("@com_github_ali5h_rules_pip//:defs.bzl", "pip_import")
 
 # Create a central repo that knows about the dependencies needed for
 # requirements.txt.
-pip3_import(
-    name = "my_py_deps",
+pip_import(
+    # this name has to be pip_deps as other rules are also using pip_deps.
+    name = "pip_deps",
     requirements = "//:requirements.txt",
 )
 
 # Load the central repo's install function from its `//:requirements.bzl` file,
 # and call it.
-load("@my_py_deps//:requirements.bzl", "pip_install")
+load("@pip_deps//:requirements.bzl", "pip_install")
 
 pip_install()
 
@@ -82,7 +94,7 @@ rules_proto_dependencies()
 rules_proto_toolchains()
 
 #################
-#### Rules Go ####
+#### Rule Go ####
 #################
 # buildifier is written in Go and hence needs rules_go to be built.
 # See https://github.com/bazelbuild/rules_go for the up to date setup instructions.
@@ -145,13 +157,12 @@ bind(
 )
 
 #####################
-#### Rules Docker ####
+#### Rule Docker ####
 #####################
 http_archive(
     name = "io_bazel_rules_docker",
-    sha256 = "6287241e033d247e9da5ff705dd6ef526bac39ae82f3d17de1b69f8cb313f9cd",
-    strip_prefix = "rules_docker-0.14.3",
-    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.14.3/rules_docker-v0.14.3.tar.gz"],
+    strip_prefix = "rules_docker-0.14.4",
+    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.14.4/rules_docker-v0.14.4.tar.gz"],
 )
 
 # OPTIONAL: Call this to override the default docker toolchain configuration.
@@ -200,6 +211,7 @@ load(
 
 container_pull(
     name = "my_py3_base",
+    digest = "sha256:f7d590fed7404ad6fcf6199012de4ea1dcefc93393c85d64783f8737009715b4",
     registry = "gcr.io",
     repository = "distroless/python3-debian10",
     tag = "latest",
@@ -214,7 +226,8 @@ container_repositories()
 
 load(
     "@io_bazel_rules_docker//python3:image.bzl",
-    _py3_image_repos = "repositories", 
-)   
-    
+    _py3_image_repos = "repositories",
+)
+
 _py3_image_repos()
+
