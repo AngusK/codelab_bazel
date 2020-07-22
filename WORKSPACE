@@ -62,17 +62,37 @@ load("@com_github_ali5h_rules_pip//:defs.bzl", "pip_import")
 
 # Create a central repo that knows about the dependencies needed for
 # requirements.txt.
-pip_import(
-    # this name has to be pip_deps as other rules are also using pip_deps.
-    name = "pip_deps",
-    requirements = "//:requirements.txt",
-)
+#pip_import(
+#    # this name has to be pip_deps as other rules are also using pip_deps.
+#    name = "pip_deps",
+#    requirements = "//:requirements.txt",
+#)
 
 # Load the central repo's install function from its `//:requirements.bzl` file,
 # and call it.
 load("@pip_deps//:requirements.bzl", "pip_install")
 
 pip_install()
+
+####################
+#### Rules Rust ####
+####################
+http_archive(
+    name = "io_bazel_rules_rust",
+    sha256 = "b6da34e057a31b8a85e343c732de4af92a762f804fc36b0baa6c001423a70ebc",
+    strip_prefix = "rules_rust-55f77017a7f5b08e525ebeab6e11d8896a4499d2",
+    urls = [
+        # Master branch as of 2019-10-07
+        "https://github.com/bazelbuild/rules_rust/archive/55f77017a7f5b08e525ebeab6e11d8896a4499d2.tar.gz",
+    ],
+)
+
+load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
+rust_repositories()
+
+load("@io_bazel_rules_rust//:workspace.bzl", "bazel_version")
+bazel_version(name = "bazel_version")
+
 
 ########################
 #### Rules Protobuf ####
