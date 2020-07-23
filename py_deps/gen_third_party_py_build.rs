@@ -5,34 +5,33 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
-    match parse_pkg_deps("./requirements.txt") {
-        Err(msg) => println!("{}", msg),
-        Ok(pkg_deps) => {
+    let pkg_deps = match parse_pkg_deps("./requirements.txt") {
+        Err(msg) => { println!("{}", msg); return },
+        Ok(pkg_deps) => pkg_deps
+    };
 
-            println!(r###"# Third-party python package dependencies.
+    println!(r###"# Third-party python package dependencies.
 # This file is auto-generated.
 
 package(default_visibility = ["//visibility:public"])
 
 load("@pip_deps//:requirements.bzl", "requirement")
 "###);
-            for (pkg, deps) in pkg_deps.iter() {
-                println!(r###"
+    for (pkg, deps) in pkg_deps.iter() {
+        println!(r###"
 py_library(
 name = "{}","###, pkg);
-                if deps.is_empty() {
-                    println!(r###"    deps = [requirement("{}")],"###, pkg);
-                } else {
-                    println!(r###"    deps = ["###);
-                    for dep in deps {
-                        println!(r###"        ":{}","###, dep);
-                    }
-                    println!(r###"        requirement("{}"),"###, pkg);
-                    println!(r###"    ],"###);
-                }
-                println!(")\n");
+        if deps.is_empty() {
+            println!(r###"    deps = [requirement("{}")],"###, pkg);
+        } else {
+            println!(r###"    deps = ["###);
+            for dep in deps {
+                println!(r###"        ":{}","###, dep);
             }
+            println!(r###"        requirement("{}"),"###, pkg);
+            println!(r###"    ],"###);
         }
+        println!(")\n");
     }
 }
 
