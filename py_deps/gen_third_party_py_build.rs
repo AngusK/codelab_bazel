@@ -43,7 +43,7 @@ fn main() {
 
 package(default_visibility = ["//visibility:public"])
 
-load("@ds_py_deps//:requirements.bzl", "requirement")
+load("@pip_deps//:requirements.bzl", "requirement")
 "###);
         for (pkg, deps) in pkg_deps.iter() {
             println!(r###"

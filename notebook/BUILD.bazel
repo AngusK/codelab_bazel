@@ -5,7 +5,6 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 py_library(
     name = "all_deps_library",
     deps = [
-        "//nlpp:preprocessor",
         "//third_party/py:tensorflow",
     ],
 )
@@ -42,7 +41,7 @@ container_push(
     format = "Docker",
     image = ":image",
     registry = "gcr.io",
-    repository = <repository_name>,
+    repository = "<repository_name>",
     tag = "latest",
 )
 

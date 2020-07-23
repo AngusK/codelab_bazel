@@ -3,7 +3,7 @@
 
 package(default_visibility = ["//visibility:public"])
 
-load("@ds_py_deps//:requirements.bzl", "requirement")
+load("@pip_deps//:requirements.bzl", "requirement")
 
 
 py_library(
@@ -26,6 +26,29 @@ py_library(
 
 
 py_library(
+    name = "attrs",
+    deps = [requirement("attrs")],
+)
+
+
+py_library(
+    name = "backcall",
+    deps = [requirement("backcall")],
+)
+
+
+py_library(
+    name = "bleach",
+    deps = [
+        ":packaging",
+        ":six",
+        ":webencodings",
+        requirement("bleach"),
+    ],
+)
+
+
+py_library(
     name = "cachetools",
     deps = [requirement("cachetools")],
 )
@@ -40,6 +63,24 @@ py_library(
 py_library(
     name = "chardet",
     deps = [requirement("chardet")],
+)
+
+
+py_library(
+    name = "decorator",
+    deps = [requirement("decorator")],
+)
+
+
+py_library(
+    name = "defusedxml",
+    deps = [requirement("defusedxml")],
+)
+
+
+py_library(
+    name = "entrypoints",
+    deps = [requirement("entrypoints")],
 )
 
 
@@ -116,6 +157,94 @@ py_library(
 
 
 py_library(
+    name = "ipykernel",
+    deps = [
+        ":ipython",
+        ":jupyter-client",
+        ":tornado",
+        ":traitlets",
+        requirement("ipykernel"),
+    ],
+)
+
+
+py_library(
+    name = "ipython",
+    deps = [
+        ":backcall",
+        ":decorator",
+        ":jedi",
+        ":pexpect",
+        ":pickleshare",
+        ":prompt-toolkit",
+        ":pygments",
+        ":setuptools",
+        ":traitlets",
+        requirement("ipython"),
+    ],
+)
+
+
+py_library(
+    name = "ipython-genutils",
+    deps = [requirement("ipython-genutils")],
+)
+
+
+py_library(
+    name = "jedi",
+    deps = [
+        ":parso",
+        requirement("jedi"),
+    ],
+)
+
+
+py_library(
+    name = "jinja2",
+    deps = [
+        ":markupsafe",
+        requirement("jinja2"),
+    ],
+)
+
+
+py_library(
+    name = "jsonschema",
+    deps = [
+        ":attrs",
+        ":importlib-metadata",
+        ":pyrsistent",
+        ":setuptools",
+        ":six",
+        requirement("jsonschema"),
+    ],
+)
+
+
+py_library(
+    name = "jupyter-client",
+    deps = [
+        ":jupyter-core",
+        ":python-dateutil",
+        ":pyzmq",
+        ":tornado",
+        ":traitlets",
+        requirement("jupyter-client"),
+    ],
+)
+
+
+py_library(
+    name = "jupyter-core",
+    deps = [
+        ":traitlets",
+        requirement("jupyter-core"),
+    ],
+)
+
+
+py_library(
     name = "keras-preprocessing",
     deps = [
         ":numpy",
@@ -130,6 +259,70 @@ py_library(
     deps = [
         ":importlib-metadata",
         requirement("markdown"),
+    ],
+)
+
+
+py_library(
+    name = "markupsafe",
+    deps = [requirement("markupsafe")],
+)
+
+
+py_library(
+    name = "mistune",
+    deps = [requirement("mistune")],
+)
+
+
+py_library(
+    name = "nbconvert",
+    deps = [
+        ":bleach",
+        ":defusedxml",
+        ":entrypoints",
+        ":jinja2",
+        ":jupyter-core",
+        ":mistune",
+        ":nbformat",
+        ":pandocfilters",
+        ":pygments",
+        ":testpath",
+        ":traitlets",
+        requirement("nbconvert"),
+    ],
+)
+
+
+py_library(
+    name = "nbformat",
+    deps = [
+        ":ipython-genutils",
+        ":jsonschema",
+        ":jupyter-core",
+        ":traitlets",
+        requirement("nbformat"),
+    ],
+)
+
+
+py_library(
+    name = "notebook",
+    deps = [
+        ":ipykernel",
+        ":ipython-genutils",
+        ":jinja2",
+        ":jupyter-client",
+        ":jupyter-core",
+        ":nbconvert",
+        ":nbformat",
+        ":prometheus-client",
+        ":pyzmq",
+        ":send2trash",
+        ":terminado",
+        ":tornado",
+        ":traitlets",
+        requirement("notebook"),
     ],
 )
 
@@ -156,12 +349,70 @@ py_library(
 
 
 py_library(
+    name = "packaging",
+    deps = [
+        ":pyparsing",
+        ":six",
+        requirement("packaging"),
+    ],
+)
+
+
+py_library(
+    name = "pandocfilters",
+    deps = [requirement("pandocfilters")],
+)
+
+
+py_library(
+    name = "parso",
+    deps = [requirement("parso")],
+)
+
+
+py_library(
+    name = "pexpect",
+    deps = [
+        ":ptyprocess",
+        requirement("pexpect"),
+    ],
+)
+
+
+py_library(
+    name = "pickleshare",
+    deps = [requirement("pickleshare")],
+)
+
+
+py_library(
+    name = "prometheus-client",
+    deps = [requirement("prometheus-client")],
+)
+
+
+py_library(
+    name = "prompt-toolkit",
+    deps = [
+        ":wcwidth",
+        requirement("prompt-toolkit"),
+    ],
+)
+
+
+py_library(
     name = "protobuf",
     deps = [
         ":setuptools",
         ":six",
         requirement("protobuf"),
     ],
+)
+
+
+py_library(
+    name = "ptyprocess",
+    deps = [requirement("ptyprocess")],
 )
 
 
@@ -177,6 +428,42 @@ py_library(
         ":pyasn1",
         requirement("pyasn1-modules"),
     ],
+)
+
+
+py_library(
+    name = "pygments",
+    deps = [requirement("pygments")],
+)
+
+
+py_library(
+    name = "pyparsing",
+    deps = [requirement("pyparsing")],
+)
+
+
+py_library(
+    name = "pyrsistent",
+    deps = [
+        ":six",
+        requirement("pyrsistent"),
+    ],
+)
+
+
+py_library(
+    name = "python-dateutil",
+    deps = [
+        ":six",
+        requirement("python-dateutil"),
+    ],
+)
+
+
+py_library(
+    name = "pyzmq",
+    deps = [requirement("pyzmq")],
 )
 
 
@@ -217,6 +504,12 @@ py_library(
         ":numpy",
         requirement("scipy"),
     ],
+)
+
+
+py_library(
+    name = "send2trash",
+    deps = [requirement("send2trash")],
 )
 
 
@@ -297,8 +590,53 @@ py_library(
 
 
 py_library(
+    name = "terminado",
+    deps = [
+        ":ptyprocess",
+        ":tornado",
+        requirement("terminado"),
+    ],
+)
+
+
+py_library(
+    name = "testpath",
+    deps = [requirement("testpath")],
+)
+
+
+py_library(
+    name = "tornado",
+    deps = [requirement("tornado")],
+)
+
+
+py_library(
+    name = "traitlets",
+    deps = [
+        ":decorator",
+        ":ipython-genutils",
+        ":six",
+        requirement("traitlets"),
+    ],
+)
+
+
+py_library(
     name = "urllib3",
     deps = [requirement("urllib3")],
+)
+
+
+py_library(
+    name = "wcwidth",
+    deps = [requirement("wcwidth")],
+)
+
+
+py_library(
+    name = "webencodings",
+    deps = [requirement("webencodings")],
 )
 
 
