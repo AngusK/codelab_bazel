@@ -62,11 +62,11 @@ load("@com_github_ali5h_rules_pip//:defs.bzl", "pip_import")
 
 # Create a central repo that knows about the dependencies needed for
 # requirements.txt.
-#pip_import(
-#    # this name has to be pip_deps as other rules are also using pip_deps.
-#    name = "pip_deps",
-#    requirements = "//:requirements.txt",
-#)
+pip_import(
+    # this name has to be pip_deps as other rules are also using pip_deps.
+    name = "pip_deps",
+    requirements = "//:requirements.txt",
+)
 
 # Load the central repo's install function from its `//:requirements.bzl` file,
 # and call it.
