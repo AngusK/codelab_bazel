@@ -1,1 +1,2 @@
 protobuf==4.0.0rc2
+tensorflow==2.2.0

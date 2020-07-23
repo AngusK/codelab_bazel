@@ -1,0 +1,327 @@
+# Third-party python package dependencies.
+# This file is auto-generated.
+
+package(default_visibility = ["//visibility:public"])
+
+load("@ds_py_deps//:requirements.bzl", "requirement")
+
+
+py_library(
+    name = "absl-py",
+    deps = [
+        ":six",
+        requirement("absl-py"),
+    ],
+)
+
+
+py_library(
+    name = "astunparse",
+    deps = [
+        ":six",
+        ":wheel",
+        requirement("astunparse"),
+    ],
+)
+
+
+py_library(
+    name = "cachetools",
+    deps = [requirement("cachetools")],
+)
+
+
+py_library(
+    name = "certifi",
+    deps = [requirement("certifi")],
+)
+
+
+py_library(
+    name = "chardet",
+    deps = [requirement("chardet")],
+)
+
+
+py_library(
+    name = "gast",
+    deps = [requirement("gast")],
+)
+
+
+py_library(
+    name = "google-auth",
+    deps = [
+        ":cachetools",
+        ":pyasn1-modules",
+        ":rsa",
+        ":setuptools",
+        ":six",
+        requirement("google-auth"),
+    ],
+)
+
+
+py_library(
+    name = "google-auth-oauthlib",
+    deps = [
+        ":google-auth",
+        ":requests-oauthlib",
+        requirement("google-auth-oauthlib"),
+    ],
+)
+
+
+py_library(
+    name = "google-pasta",
+    deps = [
+        ":six",
+        requirement("google-pasta"),
+    ],
+)
+
+
+py_library(
+    name = "grpcio",
+    deps = [
+        ":six",
+        requirement("grpcio"),
+    ],
+)
+
+
+py_library(
+    name = "h5py",
+    deps = [
+        ":numpy",
+        ":six",
+        requirement("h5py"),
+    ],
+)
+
+
+py_library(
+    name = "idna",
+    deps = [requirement("idna")],
+)
+
+
+py_library(
+    name = "importlib-metadata",
+    deps = [
+        ":zipp",
+        requirement("importlib-metadata"),
+    ],
+)
+
+
+py_library(
+    name = "keras-preprocessing",
+    deps = [
+        ":numpy",
+        ":six",
+        requirement("keras-preprocessing"),
+    ],
+)
+
+
+py_library(
+    name = "markdown",
+    deps = [
+        ":importlib-metadata",
+        requirement("markdown"),
+    ],
+)
+
+
+py_library(
+    name = "numpy",
+    deps = [requirement("numpy")],
+)
+
+
+py_library(
+    name = "oauthlib",
+    deps = [requirement("oauthlib")],
+)
+
+
+py_library(
+    name = "opt-einsum",
+    deps = [
+        ":numpy",
+        requirement("opt-einsum"),
+    ],
+)
+
+
+py_library(
+    name = "protobuf",
+    deps = [
+        ":setuptools",
+        ":six",
+        requirement("protobuf"),
+    ],
+)
+
+
+py_library(
+    name = "pyasn1",
+    deps = [requirement("pyasn1")],
+)
+
+
+py_library(
+    name = "pyasn1-modules",
+    deps = [
+        ":pyasn1",
+        requirement("pyasn1-modules"),
+    ],
+)
+
+
+py_library(
+    name = "requests",
+    deps = [
+        ":certifi",
+        ":chardet",
+        ":idna",
+        ":urllib3",
+        requirement("requests"),
+    ],
+)
+
+
+py_library(
+    name = "requests-oauthlib",
+    deps = [
+        ":oauthlib",
+        ":requests",
+        requirement("requests-oauthlib"),
+    ],
+)
+
+
+py_library(
+    name = "rsa",
+    deps = [
+        ":pyasn1",
+        requirement("rsa"),
+    ],
+)
+
+
+py_library(
+    name = "scipy",
+    deps = [
+        ":numpy",
+        requirement("scipy"),
+    ],
+)
+
+
+py_library(
+    name = "setuptools",
+    deps = [requirement("setuptools")],
+)
+
+
+py_library(
+    name = "six",
+    deps = [requirement("six")],
+)
+
+
+py_library(
+    name = "tensorboard",
+    deps = [
+        ":absl-py",
+        ":google-auth",
+        ":google-auth-oauthlib",
+        ":grpcio",
+        ":markdown",
+        ":numpy",
+        ":protobuf",
+        ":requests",
+        ":setuptools",
+        ":six",
+        ":tensorboard-plugin-wit",
+        ":werkzeug",
+        ":wheel",
+        requirement("tensorboard"),
+    ],
+)
+
+
+py_library(
+    name = "tensorboard-plugin-wit",
+    deps = [requirement("tensorboard-plugin-wit")],
+)
+
+
+py_library(
+    name = "tensorflow",
+    deps = [
+        ":absl-py",
+        ":astunparse",
+        ":gast",
+        ":google-pasta",
+        ":grpcio",
+        ":h5py",
+        ":keras-preprocessing",
+        ":numpy",
+        ":opt-einsum",
+        ":protobuf",
+        ":scipy",
+        ":six",
+        ":tensorboard",
+        ":tensorflow-estimator",
+        ":termcolor",
+        ":wheel",
+        ":wrapt",
+        requirement("tensorflow"),
+    ],
+)
+
+
+py_library(
+    name = "tensorflow-estimator",
+    deps = [requirement("tensorflow-estimator")],
+)
+
+
+py_library(
+    name = "termcolor",
+    deps = [requirement("termcolor")],
+)
+
+
+py_library(
+    name = "urllib3",
+    deps = [requirement("urllib3")],
+)
+
+
+py_library(
+    name = "werkzeug",
+    deps = [requirement("werkzeug")],
+)
+
+
+py_library(
+    name = "wheel",
+    deps = [requirement("wheel")],
+)
+
+
+py_library(
+    name = "wrapt",
+    deps = [requirement("wrapt")],
+)
+
+
+py_library(
+    name = "zipp",
+    deps = [requirement("zipp")],
+)
+
