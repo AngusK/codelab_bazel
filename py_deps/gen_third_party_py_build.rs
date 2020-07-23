@@ -5,9 +5,41 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
+    match parse_pkg_deps("./requirements.txt") {
+        Err(msg) => println!("{}", msg),
+        Ok(pkg_deps) => {
+
+            println!(r###"# Third-party python package dependencies.
+# This file is auto-generated.
+
+package(default_visibility = ["//visibility:public"])
+
+load("@pip_deps//:requirements.bzl", "requirement")
+"###);
+            for (pkg, deps) in pkg_deps.iter() {
+                println!(r###"
+py_library(
+name = "{}","###, pkg);
+                if deps.is_empty() {
+                    println!(r###"    deps = [requirement("{}")],"###, pkg);
+                } else {
+                    println!(r###"    deps = ["###);
+                    for dep in deps {
+                        println!(r###"        ":{}","###, dep);
+                    }
+                    println!(r###"        requirement("{}"),"###, pkg);
+                    println!(r###"    ],"###);
+                }
+                println!(")\n");
+            }
+        }
+    }
+}
+
+fn parse_pkg_deps(filename: &str) -> Result<BTreeMap::<String, BTreeSet::<String>>, String> {
     let mut pkg_deps: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
     // File hosts must exist in current path before this produces output
-    if let Ok(lines) = read_lines("./requirements.txt") {
+    if let Ok(lines) = read_lines(filename) {
         // Consumes the iterator, returns an (Optional) String
         for line in lines {
             if let Err(_) = line {
@@ -36,31 +68,9 @@ fn main() {
                 pkg_deps.entry(dep.to_string()).or_insert_with(|| vec![].into_iter().collect());
             }
         }
-
-
-        println!(r###"# Third-party python package dependencies.
-# This file is auto-generated.
-
-package(default_visibility = ["//visibility:public"])
-
-load("@pip_deps//:requirements.bzl", "requirement")
-"###);
-        for (pkg, deps) in pkg_deps.iter() {
-            println!(r###"
-py_library(
-    name = "{}","###, pkg);
-            if deps.is_empty() {
-                println!(r###"    deps = [requirement("{}")],"###, pkg);
-            } else {
-                println!(r###"    deps = ["###);
-                for dep in deps {
-                    println!(r###"        ":{}","###, dep);
-                }
-                println!(r###"        requirement("{}"),"###, pkg);
-                println!(r###"    ],"###);
-            }
-            println!(")\n");
-        }
+        Ok(pkg_deps)
+    } else {
+        Err("Error reading file".to_string())
     }
 }
 
