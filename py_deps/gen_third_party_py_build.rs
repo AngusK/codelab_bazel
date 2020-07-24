@@ -6,21 +6,29 @@ use std::path::Path;
 
 fn main() {
     let pkg_deps = match parse_pkg_deps("./requirements.txt") {
-        Err(msg) => { println!("{}", msg); return },
-        Ok(pkg_deps) => pkg_deps
+        Err(msg) => {
+            println!("{}", msg);
+            return;
+        }
+        Ok(pkg_deps) => pkg_deps,
     };
 
-    println!(r###"# Third-party python package dependencies.
+    println!(
+        r###"# Third-party python package dependencies.
 # This file is auto-generated.
 
 package(default_visibility = ["//visibility:public"])
 
 load("@pip_deps//:requirements.bzl", "requirement")
-"###);
+"###
+    );
     for (pkg, deps) in pkg_deps.iter() {
-        println!(r###"
+        println!(
+            r###"
 py_library(
-name = "{}","###, pkg);
+name = "{}","###,
+            pkg
+        );
         if deps.is_empty() {
             println!(r###"    deps = [requirement("{}")],"###, pkg);
         } else {
@@ -35,37 +43,59 @@ name = "{}","###, pkg);
     }
 }
 
-fn parse_pkg_deps(filename: &str) -> Result<BTreeMap::<String, BTreeSet::<String>>, String> {
+fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, String> {
     let mut pkg_deps: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
     // File hosts must exist in current path before this produces output
     if let Ok(lines) = read_lines(filename) {
         // Consumes the iterator, returns an (Optional) String
-        for line in lines {
-            if let Err(_) = line {
-                println!("Read line error");
-                break;
-            } else if let Ok(l) = line {
-                let trimmed = l.trim();
-                if trimmed.starts_with("#") { continue; }
-                if trimmed.is_empty() { continue; }
-
-                let via_pos = trimmed.find("# via ");
-                if via_pos.is_none() { continue; }
-                let dep_req = &trimmed[..via_pos.unwrap()].trim();
-                let pkg_str = &trimmed[via_pos.unwrap() + 6..].trim();
-
-                let req_pos = dep_req.find("==");
-                if req_pos.is_none() { continue; }
-                let dep = &dep_req[..req_pos.unwrap()];
-
-                let pkgs: Vec<&str> = pkg_str.split(", ").collect();
-                for p in pkgs {
-                    if p.starts_with("-r ") { continue; }
-                    let dep_set = pkg_deps.entry(p.to_string()).or_insert_with(|| vec![].into_iter().collect());
-                    dep_set.insert(dep.to_string());
+        for _line in lines {
+            let line = match _line {
+                Err(_) => {
+                    return Err("Error reading lines.".to_string());
                 }
-                pkg_deps.entry(dep.to_string()).or_insert_with(|| vec![].into_iter().collect());
+                Ok(l) => l,
+            };
+            let trimmed = line.trim();
+            if trimmed.starts_with("#") {
+                continue;
             }
+            if trimmed.is_empty() {
+                continue;
+            }
+
+            // Assuming we have the input:
+            // "six==1.0.0       # via protobuf, tensorflow
+            let via_pos = trimmed.find("# via ");
+            if via_pos.is_none() {
+                continue;
+            }
+
+            // dep_req: "six==1.0.0"
+            // pkg_str: "protobuf, tensorflow"
+            let dep_req = &trimmed[..via_pos.unwrap()].trim();
+            let pkg_str = &trimmed[via_pos.unwrap() + 6..].trim();
+
+            // dep: "six"
+            let req_pos = dep_req.find("==");
+            if req_pos.is_none() {
+                continue;
+            }
+            let dep = &dep_req[..req_pos.unwrap()];
+
+            // pkgs = ["protobuf", "tensorflow"]
+            let pkgs: Vec<&str> = pkg_str.split(", ").collect();
+            for p in pkgs {
+                if p.starts_with("-r ") {
+                    continue;
+                }
+                let dep_set = pkg_deps
+                    .entry(p.to_string())
+                    .or_insert_with(|| vec![].into_iter().collect());
+                dep_set.insert(dep.to_string());
+            }
+            pkg_deps
+                .entry(dep.to_string())
+                .or_insert_with(|| vec![].into_iter().collect());
         }
         Ok(pkg_deps)
     } else {
@@ -74,7 +104,9 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap::<String, BTreeSet::<String
 }
 
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where P: AsRef<Path>, {
+where
+    P: AsRef<Path>,
+{
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
 }
