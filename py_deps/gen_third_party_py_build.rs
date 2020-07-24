@@ -56,10 +56,7 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
                 Ok(l) => l,
             };
             let trimmed = line.trim();
-            if trimmed.starts_with("#") {
-                continue;
-            }
-            if trimmed.is_empty() {
+            if trimmed.is_empty() || trimmed.starts_with("#") {
                 continue;
             }
 
