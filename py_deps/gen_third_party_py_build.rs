@@ -62,22 +62,21 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
 
             // Assuming we have the input:
             // "six==1.0.0       # via protobuf, tensorflow
-            let via_pos = trimmed.find("# via ");
-            if via_pos.is_none() {
-                continue;
-            }
-
+            let via_pos = match trimmed.find("# via ") {
+                None => {continue;}
+                Some(t) => t
+            };
             // dep_req: "six==1.0.0"
             // pkg_str: "protobuf, tensorflow"
-            let dep_req = &trimmed[..via_pos.unwrap()].trim();
-            let pkg_str = &trimmed[via_pos.unwrap() + 6..].trim();
+            let dep_req = &trimmed[..via_pos].trim();
+            let pkg_str = &trimmed[via_pos + 6..].trim();
 
             // dep: "six"
-            let req_pos = dep_req.find("==");
-            if req_pos.is_none() {
-                continue;
-            }
-            let dep = &dep_req[..req_pos.unwrap()];
+            let req_pos = match dep_req.find("==") {
+                None => {continue;}
+                Some(t) => t
+            };
+            let dep = &dep_req[..req_pos];
 
             // pkgs = ["protobuf", "tensorflow"]
             let pkgs: Vec<&str> = pkg_str.split(", ").collect();
