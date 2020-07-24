@@ -63,8 +63,10 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
             // Assuming we have the input:
             // "six==1.0.0       # via protobuf, tensorflow
             let via_pos = match trimmed.find("# via ") {
-                None => {continue;}
-                Some(t) => t
+                None => {
+                    continue;
+                }
+                Some(t) => t,
             };
             // dep_req: "six==1.0.0"
             // pkg_str: "protobuf, tensorflow"
@@ -73,8 +75,10 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
 
             // dep: "six"
             let req_pos = match dep_req.find("==") {
-                None => {continue;}
-                Some(t) => t
+                None => {
+                    continue;
+                }
+                Some(t) => t,
             };
             let dep = &dep_req[..req_pos];
 
