@@ -90,12 +90,12 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
                 }
                 let dep_set = pkg_deps
                     .entry(p.to_string())
-                    .or_insert_with(|| vec![].into_iter().collect());
+                    .or_insert_with(|| Default::default());
                 dep_set.insert(dep.to_string());
             }
             pkg_deps
                 .entry(dep.to_string())
-                .or_insert_with(|| vec![].into_iter().collect());
+                .or_insert_with(|| Default::default());
         }
         Ok(pkg_deps)
     } else {
