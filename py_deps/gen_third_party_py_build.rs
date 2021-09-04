@@ -5,7 +5,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
-    let pkg_deps = match parse_pkg_deps("./requirements.txt") {
+    let pkg_deps = match parse_pkg_deps("./requirements_lock.txt") {
         Err(msg) => {
             println!("{}", msg);
             return;
@@ -26,7 +26,7 @@ load("@pip_deps//:requirements.bzl", "requirement")
         println!(
             r###"
 py_library(
-name = "{}","###,
+    name = "{}","###,
             pkg
         );
         if deps.is_empty() {
@@ -48,6 +48,7 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
     // File hosts must exist in current path before this produces output
     if let Ok(lines) = read_lines(filename) {
         // Consumes the iterator, returns an (Optional) String
+        let mut dep: String = "".to_string();
         for _line in lines {
             let line = match _line {
                 Err(_) => {
@@ -55,47 +56,44 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
                 }
                 Ok(l) => l,
             };
-            let trimmed = line.trim();
-            if trimmed.is_empty() || trimmed.starts_with("#") {
+
+            if line.is_empty() || line.starts_with("#") {
                 continue;
             }
 
-            // Assuming we have the input:
-            // "six==1.0.0       # via protobuf, tensorflow
-            let via_pos = match trimmed.find("# via ") {
-                None => {
-                    continue;
+            if !line.starts_with("    #") {
+                // dep
+                let req_pos = match line.find("==") {
+                    None => {
+                        continue;
+                    }
+                    Some(t) => t,
+                };
+                dep = line[..req_pos].to_string();
+                pkg_deps
+                    .entry(dep.to_string())
+                    .or_insert_with(|| Default::default());
+            } else {
+                let p;
+                // handle these lines
+                //     # via selenium-wire
+                //     #   requests
+                if line.starts_with("    # via") {
+                    p = line[9..].trim();
+                } else {
+                    p = line[8..].trim();
                 }
-                Some(t) => t,
-            };
-            // dep_req: "six==1.0.0"
-            // pkg_str: "protobuf, tensorflow"
-            let dep_req = &trimmed[..via_pos].trim();
-            let pkg_str = &trimmed[via_pos + 6..].trim();
-
-            // dep: "six"
-            let req_pos = match dep_req.find("==") {
-                None => {
-                    continue;
-                }
-                Some(t) => t,
-            };
-            let dep = &dep_req[..req_pos];
-
-            // pkgs = ["protobuf", "tensorflow"]
-            let pkgs: Vec<&str> = pkg_str.split(", ").collect();
-            for p in pkgs {
-                if p.starts_with("-r ") {
+                // escape these lines
+                // # via -r requirements.in
+                //     #   -r requirements.in
+                if p.is_empty() || p.starts_with("-r") {
                     continue;
                 }
                 let dep_set = pkg_deps
                     .entry(p.to_string())
                     .or_insert_with(|| Default::default());
-                dep_set.insert(dep.to_string());
+                dep_set.insert(dep.clone());
             }
-            pkg_deps
-                .entry(dep.to_string())
-                .or_insert_with(|| Default::default());
         }
         Ok(pkg_deps)
     } else {
