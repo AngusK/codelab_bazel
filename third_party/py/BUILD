@@ -16,6 +16,15 @@ py_library(
 
 
 py_library(
+    name = "argon2-cffi",
+    deps = [
+        ":cffi",
+        requirement("argon2-cffi"),
+    ],
+)
+
+
+py_library(
     name = "astunparse",
     deps = [
         ":six",
@@ -61,8 +70,23 @@ py_library(
 
 
 py_library(
+    name = "cffi",
+    deps = [
+        ":pycparser",
+        requirement("cffi"),
+    ],
+)
+
+
+py_library(
     name = "chardet",
     deps = [requirement("chardet")],
+)
+
+
+py_library(
+    name = "clang",
+    deps = [requirement("clang")],
 )
 
 
@@ -81,6 +105,12 @@ py_library(
 py_library(
     name = "entrypoints",
     deps = [requirement("entrypoints")],
+)
+
+
+py_library(
+    name = "flatbuffers",
+    deps = [requirement("flatbuffers")],
 )
 
 
@@ -135,7 +165,6 @@ py_library(
     name = "h5py",
     deps = [
         ":numpy",
-        ":six",
         requirement("h5py"),
     ],
 )
@@ -144,15 +173,6 @@ py_library(
 py_library(
     name = "idna",
     deps = [requirement("idna")],
-)
-
-
-py_library(
-    name = "importlib-metadata",
-    deps = [
-        ":zipp",
-        requirement("importlib-metadata"),
-    ],
 )
 
 
@@ -213,7 +233,6 @@ py_library(
     name = "jsonschema",
     deps = [
         ":attrs",
-        ":importlib-metadata",
         ":pyrsistent",
         ":setuptools",
         ":six",
@@ -245,6 +264,12 @@ py_library(
 
 
 py_library(
+    name = "keras",
+    deps = [requirement("keras")],
+)
+
+
+py_library(
     name = "keras-preprocessing",
     deps = [
         ":numpy",
@@ -256,10 +281,7 @@ py_library(
 
 py_library(
     name = "markdown",
-    deps = [
-        ":importlib-metadata",
-        requirement("markdown"),
-    ],
+    deps = [requirement("markdown")],
 )
 
 
@@ -309,6 +331,7 @@ py_library(
 py_library(
     name = "notebook",
     deps = [
+        ":argon2-cffi",
         ":ipykernel",
         ":ipython-genutils",
         ":jinja2",
@@ -432,6 +455,12 @@ py_library(
 
 
 py_library(
+    name = "pycparser",
+    deps = [requirement("pycparser")],
+)
+
+
+py_library(
     name = "pygments",
     deps = [requirement("pygments")],
 )
@@ -499,15 +528,6 @@ py_library(
 
 
 py_library(
-    name = "scipy",
-    deps = [
-        ":numpy",
-        requirement("scipy"),
-    ],
-)
-
-
-py_library(
     name = "send2trash",
     deps = [requirement("send2trash")],
 )
@@ -537,12 +557,18 @@ py_library(
         ":protobuf",
         ":requests",
         ":setuptools",
-        ":six",
+        ":tensorboard-data-server",
         ":tensorboard-plugin-wit",
         ":werkzeug",
         ":wheel",
         requirement("tensorboard"),
     ],
+)
+
+
+py_library(
+    name = "tensorboard-data-server",
+    deps = [requirement("tensorboard-data-server")],
 )
 
 
@@ -557,19 +583,22 @@ py_library(
     deps = [
         ":absl-py",
         ":astunparse",
+        ":clang",
+        ":flatbuffers",
         ":gast",
         ":google-pasta",
         ":grpcio",
         ":h5py",
+        ":keras",
         ":keras-preprocessing",
         ":numpy",
         ":opt-einsum",
         ":protobuf",
-        ":scipy",
         ":six",
         ":tensorboard",
         ":tensorflow-estimator",
         ":termcolor",
+        ":typing-extensions",
         ":wheel",
         ":wrapt",
         requirement("tensorflow"),
@@ -623,6 +652,12 @@ py_library(
 
 
 py_library(
+    name = "typing-extensions",
+    deps = [requirement("typing-extensions")],
+)
+
+
+py_library(
     name = "urllib3",
     deps = [requirement("urllib3")],
 )
@@ -655,11 +690,5 @@ py_library(
 py_library(
     name = "wrapt",
     deps = [requirement("wrapt")],
-)
-
-
-py_library(
-    name = "zipp",
-    deps = [requirement("zipp")],
 )
 
