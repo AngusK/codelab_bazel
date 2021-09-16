@@ -1,11 +1,23 @@
 use std::collections::BTreeMap;
 use std::collections::BTreeSet;
+use std::env;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
+
 fn main() {
-    let pkg_deps = match parse_pkg_deps("./requirements_lock.txt") {
+
+    let args: Vec<String> = env::args().collect();
+    if args.len() == 1 {
+        println!("Usage: {} <path to requirements_lock.txt>", args[0]);
+        return;
+    }
+    println!("{:?}", args);
+
+    let requirement_file: &String = &args[1];
+
+    let pkg_deps = match parse_pkg_deps(requirement_file) {
         Err(msg) => {
             println!("{}", msg);
             return;
