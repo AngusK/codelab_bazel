@@ -8,164 +8,295 @@ absl-py==0.13.0
     # via
     #   tensorboard
     #   tensorflow
+apache-beam[test]==2.32.0
+    # via -r requirements.in
 argon2-cffi==21.1.0
     # via notebook
 astunparse==1.6.3
     # via tensorflow
-attrs==19.3.0
-    # via jsonschema
+atomicwrites==1.4.0
+    # via pytest
+attrs==21.2.0
+    # via
+    #   jsonschema
+    #   pytest
+avro-python3==1.9.2.1
+    # via apache-beam
 backcall==0.2.0
     # via ipython
-bleach==3.3.0
+bleach==4.1.0
     # via nbconvert
-cachetools==4.1.1
+cachetools==4.2.2
     # via google-auth
-certifi==2020.6.20
+certifi==2021.5.30
     # via requests
 cffi==1.14.6
     # via argon2-cffi
-chardet==3.0.4
+charset-normalizer==2.0.5
     # via requests
 clang==5.0
     # via tensorflow
-decorator==4.4.2
-    # via
-    #   ipython
-    #   traitlets
-defusedxml==0.6.0
+crcmod==1.7
+    # via apache-beam
+debugpy==1.4.3
+    # via ipykernel
+decorator==5.1.0
+    # via ipython
+defusedxml==0.7.1
     # via nbconvert
+deprecation==2.1.0
+    # via testcontainers
+dill==0.3.1.1
+    # via apache-beam
+docker==5.0.2
+    # via testcontainers
+docopt==0.6.2
+    # via hdfs
 entrypoints==0.3
-    # via nbconvert
+    # via
+    #   jupyter-client
+    #   nbconvert
+execnet==1.9.0
+    # via pytest-xdist
+fastavro==1.4.4
+    # via apache-beam
 flatbuffers==1.12
     # via tensorflow
+freezegun==1.1.0
+    # via apache-beam
+future==0.18.2
+    # via apache-beam
 gast==0.4.0
     # via tensorflow
-google-auth==1.19.2
+google-auth==1.35.0
     # via
     #   google-auth-oauthlib
     #   tensorboard
-google-auth-oauthlib==0.4.1
+google-auth-oauthlib==0.4.6
     # via tensorboard
 google-pasta==0.2.0
     # via tensorflow
-grpcio==1.39.0
+greenlet==1.1.1
+    # via sqlalchemy
+grpcio==1.40.0
     # via
+    #   apache-beam
     #   tensorboard
     #   tensorflow
 h5py==3.1.0
     # via tensorflow
-idna==2.10
+hdfs==2.6.0
+    # via apache-beam
+httplib2==0.19.1
+    # via
+    #   apache-beam
+    #   oauth2client
+idna==3.2
     # via requests
-ipykernel==5.3.4
+ipykernel==6.4.1
     # via notebook
-ipython==7.16.1
+ipython==7.27.0
     # via ipykernel
 ipython-genutils==0.2.0
     # via
+    #   ipykernel
     #   nbformat
     #   notebook
-    #   traitlets
-jedi==0.17.2
+jedi==0.18.0
     # via ipython
-jinja2==2.11.3
+jinja2==3.0.1
     # via
     #   nbconvert
     #   notebook
 jsonschema==3.2.0
     # via nbformat
-jupyter-client==6.1.6
+jupyter-client==7.0.2
     # via
     #   ipykernel
+    #   nbclient
     #   notebook
-jupyter-core==4.6.3
+jupyter-core==4.7.1
     # via
     #   jupyter-client
     #   nbconvert
     #   nbformat
     #   notebook
+jupyterlab-pygments==0.1.2
+    # via nbconvert
 keras==2.6.0
     # via tensorflow
 keras-preprocessing==1.1.2
     # via tensorflow
-markdown==3.2.2
+markdown==3.3.4
     # via tensorboard
-markupsafe==1.1.1
+markupsafe==2.0.1
     # via jinja2
+matplotlib-inline==0.1.3
+    # via
+    #   ipykernel
+    #   ipython
 mistune==0.8.4
     # via nbconvert
-nbconvert==5.6.1
+mock==2.0.0
+    # via apache-beam
+more-itertools==8.9.0
+    # via pytest
+nbclient==0.5.4
+    # via nbconvert
+nbconvert==6.1.0
     # via notebook
-nbformat==5.0.7
+nbformat==5.1.3
     # via
+    #   nbclient
     #   nbconvert
     #   notebook
+nest-asyncio==1.5.1
+    # via
+    #   jupyter-client
+    #   nbclient
+nose==1.3.7
+    # via
+    #   apache-beam
+    #   nose-xunitmp
+nose-xunitmp==0.4.1
+    # via apache-beam
 notebook==6.4.3
     # via -r requirements.in
 numpy==1.19.5
     # via
+    #   apache-beam
     #   h5py
     #   keras-preprocessing
     #   opt-einsum
+    #   pandas
+    #   pyarrow
     #   tensorboard
     #   tensorflow
-oauthlib==3.1.0
+oauth2client==4.1.3
+    # via apache-beam
+oauthlib==3.1.1
     # via requests-oauthlib
 opt-einsum==3.3.0
     # via tensorflow
-packaging==20.4
-    # via bleach
-pandocfilters==1.4.2
+orjson==3.6.3
+    # via apache-beam
+packaging==21.0
+    # via
+    #   bleach
+    #   deprecation
+    #   pytest
+pandas==1.2.5
+    # via apache-beam
+pandocfilters==1.5.0
     # via nbconvert
-parso==0.7.0
+parameterized==0.7.5
+    # via apache-beam
+parso==0.8.2
     # via jedi
+pbr==5.6.0
+    # via mock
 pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-prometheus-client==0.8.0
+pluggy==0.13.1
+    # via pytest
+prometheus-client==0.11.0
     # via notebook
-prompt-toolkit==3.0.5
+prompt-toolkit==3.0.20
     # via ipython
-protobuf==4.0.0rc2
+protobuf==3.18.0
     # via
     #   -r requirements.in
+    #   apache-beam
     #   tensorboard
     #   tensorflow
-ptyprocess==0.6.0
+psycopg2-binary==2.9.1
+    # via apache-beam
+ptyprocess==0.7.0
     # via
     #   pexpect
     #   terminado
+py==1.10.0
+    # via
+    #   pytest
+    #   pytest-forked
+pyarrow==4.0.1
+    # via apache-beam
 pyasn1==0.4.8
     # via
+    #   oauth2client
     #   pyasn1-modules
     #   rsa
 pyasn1-modules==0.2.8
-    # via google-auth
+    # via
+    #   google-auth
+    #   oauth2client
 pycparser==2.20
     # via cffi
-pygments==2.7.4
+pydot==1.4.2
+    # via apache-beam
+pygments==2.10.0
     # via
     #   ipython
+    #   jupyterlab-pygments
     #   nbconvert
+pyhamcrest==1.10.1
+    # via apache-beam
+pymongo==3.12.0
+    # via apache-beam
 pyparsing==2.4.7
-    # via packaging
-pyrsistent==0.16.0
+    # via
+    #   httplib2
+    #   packaging
+    #   pydot
+pyrsistent==0.18.0
     # via jsonschema
-python-dateutil==2.8.1
-    # via jupyter-client
-pyzmq==19.0.1
+pytest==4.6.11
+    # via
+    #   apache-beam
+    #   pytest-forked
+    #   pytest-timeout
+    #   pytest-xdist
+pytest-forked==1.3.0
+    # via pytest-xdist
+pytest-timeout==1.4.2
+    # via apache-beam
+pytest-xdist==1.34.0
+    # via apache-beam
+python-dateutil==2.8.2
+    # via
+    #   apache-beam
+    #   freezegun
+    #   jupyter-client
+    #   pandas
+pytz==2021.1
+    # via
+    #   apache-beam
+    #   pandas
+pyyaml==5.4.1
+    # via apache-beam
+pyzmq==22.2.1
     # via
     #   jupyter-client
     #   notebook
-requests==2.24.0
+requests==2.26.0
     # via
+    #   apache-beam
+    #   docker
+    #   hdfs
+    #   requests-mock
     #   requests-oauthlib
     #   tensorboard
+requests-mock==1.9.3
+    # via apache-beam
 requests-oauthlib==1.3.0
     # via google-auth-oauthlib
-rsa==4.7
-    # via google-auth
-send2trash==1.5.0
+rsa==4.7.2
+    # via
+    #   google-auth
+    #   oauth2client
+send2trash==1.8.0
     # via notebook
 six==1.15.0
     # via
@@ -175,19 +306,27 @@ six==1.15.0
     #   google-auth
     #   google-pasta
     #   grpcio
+    #   hdfs
     #   jsonschema
     #   keras-preprocessing
-    #   packaging
-    #   protobuf
-    #   pyrsistent
+    #   mock
+    #   oauth2client
+    #   pyhamcrest
+    #   pytest
+    #   pytest-xdist
     #   python-dateutil
+    #   requests-mock
+    #   tenacity
     #   tensorflow
-    #   traitlets
+sqlalchemy==1.4.23
+    # via apache-beam
+tenacity==5.1.5
+    # via apache-beam
 tensorboard==2.6.0
     # via tensorflow
 tensorboard-data-server==0.6.1
     # via tensorboard
-tensorboard-plugin-wit==1.7.0
+tensorboard-plugin-wit==1.8.0
     # via tensorboard
 tensorflow==2.6.0
     # via -r requirements.in
@@ -195,9 +334,11 @@ tensorflow-estimator==2.6.0
     # via tensorflow
 termcolor==1.1.0
     # via tensorflow
-terminado==0.8.3
+terminado==0.12.1
     # via notebook
-testpath==0.4.4
+testcontainers==3.4.2
+    # via apache-beam
+testpath==0.5.0
     # via nbconvert
 tornado==6.1
     # via
@@ -205,24 +346,32 @@ tornado==6.1
     #   jupyter-client
     #   notebook
     #   terminado
-traitlets==4.3.3
+traitlets==5.1.0
     # via
     #   ipykernel
     #   ipython
     #   jupyter-client
     #   jupyter-core
+    #   matplotlib-inline
+    #   nbclient
     #   nbconvert
     #   nbformat
     #   notebook
 typing-extensions==3.7.4.3
-    # via tensorflow
-urllib3==1.25.10
+    # via
+    #   apache-beam
+    #   tensorflow
+urllib3==1.26.6
     # via requests
 wcwidth==0.2.5
-    # via prompt-toolkit
+    # via
+    #   prompt-toolkit
+    #   pytest
 webencodings==0.5.1
     # via bleach
-werkzeug==1.0.1
+websocket-client==1.2.1
+    # via docker
+werkzeug==2.0.1
     # via tensorboard
 wheel==0.37.0
     # via
@@ -230,13 +379,14 @@ wheel==0.37.0
     #   tensorboard
     #   tensorflow
 wrapt==1.12.1
-    # via tensorflow
+    # via
+    #   tensorflow
+    #   testcontainers
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==49.2.0
+setuptools==58.0.4
     # via
     #   google-auth
     #   ipython
     #   jsonschema
-    #   protobuf
     #   tensorboard
