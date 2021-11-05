@@ -13,7 +13,6 @@ fn main() {
         println!("Usage: {} <path to requirements_lock.txt>", args[0]);
         return;
     }
-    println!("{:?}", args);
 
     let requirement_file: &String = &args[1];
 
@@ -26,14 +25,12 @@ fn main() {
     };
 
     println!(
-        r###"# Third-party python package dependencies.
+        r###"load("@pip_deps//:requirements.bzl", "requirement")
+
+# Third-party python package dependencies.
 # This file is auto-generated.
 
-package(default_visibility = ["//visibility:public"])
-
-load("@pip_deps//:requirements.bzl", "requirement")
-"###
-    );
+package(default_visibility = ["//visibility:public"])"###);
     for (pkg, deps) in pkg_deps.iter() {
         println!(
             r###"
@@ -51,7 +48,7 @@ py_library(
             println!(r###"        requirement("{}"),"###, pkg);
             println!(r###"    ],"###);
         }
-        println!(")\n");
+        println!(")");
     }
 }
 
@@ -75,10 +72,15 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
 
             if !line.starts_with("    #") {
                 // dep
-                let req_pos = match line.find("==") {
+                let eq_pos = match line.find("==") {
                     None => {
                         continue;
                     }
+                    Some(t) => t,
+                };
+                // cut at the package option position if any
+                let req_pos = match line.find("[") {
+                    None => eq_pos,
                     Some(t) => t,
                 };
                 dep = line[..req_pos].to_string();
