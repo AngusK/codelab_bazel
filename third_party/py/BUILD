@@ -1,11 +1,9 @@
-["/home/angus/.cache/bazel/_bazel_angus/c20df83144524e6655d3308e6989c364/execroot/bazel_tutorial/bazel-out/k8-fastbuild/bin/py_deps/gen_third_party_py_build", "/home/angus/codelab_bazel/requirements_lock.txt"]
+load("@pip_deps//:requirements.bzl", "requirement")
+
 # Third-party python package dependencies.
 # This file is auto-generated.
 
 package(default_visibility = ["//visibility:public"])
-
-load("@pip_deps//:requirements.bzl", "requirement")
-
 
 py_library(
     name = "absl-py",
@@ -14,7 +12,6 @@ py_library(
         requirement("absl-py"),
     ],
 )
-
 
 py_library(
     name = "apache-beam",
@@ -58,7 +55,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "argon2-cffi",
     deps = [
@@ -66,7 +62,6 @@ py_library(
         requirement("argon2-cffi"),
     ],
 )
-
 
 py_library(
     name = "astunparse",
@@ -77,30 +72,25 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "atomicwrites",
     deps = [requirement("atomicwrites")],
 )
-
 
 py_library(
     name = "attrs",
     deps = [requirement("attrs")],
 )
 
-
 py_library(
     name = "avro-python3",
     deps = [requirement("avro-python3")],
 )
 
-
 py_library(
     name = "backcall",
     deps = [requirement("backcall")],
 )
-
 
 py_library(
     name = "bleach",
@@ -112,18 +102,15 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "cachetools",
     deps = [requirement("cachetools")],
 )
 
-
 py_library(
     name = "certifi",
     deps = [requirement("certifi")],
 )
-
 
 py_library(
     name = "cffi",
@@ -133,42 +120,35 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "charset-normalizer",
     deps = [requirement("charset-normalizer")],
 )
-
 
 py_library(
     name = "clang",
     deps = [requirement("clang")],
 )
 
-
 py_library(
     name = "crcmod",
     deps = [requirement("crcmod")],
 )
-
 
 py_library(
     name = "debugpy",
     deps = [requirement("debugpy")],
 )
 
-
 py_library(
     name = "decorator",
     deps = [requirement("decorator")],
 )
 
-
 py_library(
     name = "defusedxml",
     deps = [requirement("defusedxml")],
 )
-
 
 py_library(
     name = "deprecation",
@@ -178,12 +158,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "dill",
     deps = [requirement("dill")],
 )
-
 
 py_library(
     name = "docker",
@@ -194,36 +172,30 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "docopt",
     deps = [requirement("docopt")],
 )
-
 
 py_library(
     name = "entrypoints",
     deps = [requirement("entrypoints")],
 )
 
-
 py_library(
     name = "execnet",
     deps = [requirement("execnet")],
 )
-
 
 py_library(
     name = "fastavro",
     deps = [requirement("fastavro")],
 )
 
-
 py_library(
     name = "flatbuffers",
     deps = [requirement("flatbuffers")],
 )
-
 
 py_library(
     name = "freezegun",
@@ -233,18 +205,15 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "future",
     deps = [requirement("future")],
 )
 
-
 py_library(
     name = "gast",
     deps = [requirement("gast")],
 )
-
 
 py_library(
     name = "google-auth",
@@ -258,7 +227,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "google-auth-oauthlib",
     deps = [
@@ -268,7 +236,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "google-pasta",
     deps = [
@@ -277,12 +244,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "greenlet",
     deps = [requirement("greenlet")],
 )
-
 
 py_library(
     name = "grpcio",
@@ -292,7 +257,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "h5py",
     deps = [
@@ -300,7 +264,6 @@ py_library(
         requirement("h5py"),
     ],
 )
-
 
 py_library(
     name = "hdfs",
@@ -312,7 +275,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "httplib2",
     deps = [
@@ -321,12 +283,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "idna",
     deps = [requirement("idna")],
 )
-
 
 py_library(
     name = "ipykernel",
@@ -341,7 +301,6 @@ py_library(
         requirement("ipykernel"),
     ],
 )
-
 
 py_library(
     name = "ipython",
@@ -360,12 +319,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "ipython-genutils",
     deps = [requirement("ipython-genutils")],
 )
-
 
 py_library(
     name = "jedi",
@@ -375,7 +332,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "jinja2",
     deps = [
@@ -383,7 +339,6 @@ py_library(
         requirement("jinja2"),
     ],
 )
-
 
 py_library(
     name = "jsonschema",
@@ -395,7 +350,6 @@ py_library(
         requirement("jsonschema"),
     ],
 )
-
 
 py_library(
     name = "jupyter-client",
@@ -411,7 +365,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "jupyter-core",
     deps = [
@@ -419,7 +372,6 @@ py_library(
         requirement("jupyter-core"),
     ],
 )
-
 
 py_library(
     name = "jupyterlab-pygments",
@@ -429,12 +381,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "keras",
     deps = [requirement("keras")],
 )
-
 
 py_library(
     name = "keras-preprocessing",
@@ -445,18 +395,15 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "markdown",
     deps = [requirement("markdown")],
 )
 
-
 py_library(
     name = "markupsafe",
     deps = [requirement("markupsafe")],
 )
-
 
 py_library(
     name = "matplotlib-inline",
@@ -466,12 +413,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "mistune",
     deps = [requirement("mistune")],
 )
-
 
 py_library(
     name = "mock",
@@ -482,12 +427,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "more-itertools",
     deps = [requirement("more-itertools")],
 )
-
 
 py_library(
     name = "nbclient",
@@ -499,7 +442,6 @@ py_library(
         requirement("nbclient"),
     ],
 )
-
 
 py_library(
     name = "nbconvert",
@@ -521,7 +463,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "nbformat",
     deps = [
@@ -533,18 +474,15 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "nest-asyncio",
     deps = [requirement("nest-asyncio")],
 )
 
-
 py_library(
     name = "nose",
     deps = [requirement("nose")],
 )
-
 
 py_library(
     name = "nose-xunitmp",
@@ -553,7 +491,6 @@ py_library(
         requirement("nose-xunitmp"),
     ],
 )
-
 
 py_library(
     name = "notebook",
@@ -576,12 +513,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "numpy",
     deps = [requirement("numpy")],
 )
-
 
 py_library(
     name = "oauth2client",
@@ -595,12 +530,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "oauthlib",
     deps = [requirement("oauthlib")],
 )
-
 
 py_library(
     name = "opt-einsum",
@@ -610,12 +543,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "orjson",
     deps = [requirement("orjson")],
 )
-
 
 py_library(
     name = "packaging",
@@ -624,7 +555,6 @@ py_library(
         requirement("packaging"),
     ],
 )
-
 
 py_library(
     name = "pandas",
@@ -636,30 +566,25 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pandocfilters",
     deps = [requirement("pandocfilters")],
 )
-
 
 py_library(
     name = "parameterized",
     deps = [requirement("parameterized")],
 )
 
-
 py_library(
     name = "parso",
     deps = [requirement("parso")],
 )
 
-
 py_library(
     name = "pbr",
     deps = [requirement("pbr")],
 )
-
 
 py_library(
     name = "pexpect",
@@ -669,24 +594,20 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pickleshare",
     deps = [requirement("pickleshare")],
 )
-
 
 py_library(
     name = "pluggy",
     deps = [requirement("pluggy")],
 )
 
-
 py_library(
     name = "prometheus-client",
     deps = [requirement("prometheus-client")],
 )
-
 
 py_library(
     name = "prompt-toolkit",
@@ -696,30 +617,25 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "protobuf",
     deps = [requirement("protobuf")],
 )
-
 
 py_library(
     name = "psycopg2-binary",
     deps = [requirement("psycopg2-binary")],
 )
 
-
 py_library(
     name = "ptyprocess",
     deps = [requirement("ptyprocess")],
 )
 
-
 py_library(
     name = "py",
     deps = [requirement("py")],
 )
-
 
 py_library(
     name = "pyarrow",
@@ -729,12 +645,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pyasn1",
     deps = [requirement("pyasn1")],
 )
-
 
 py_library(
     name = "pyasn1-modules",
@@ -744,12 +658,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pycparser",
     deps = [requirement("pycparser")],
 )
-
 
 py_library(
     name = "pydot",
@@ -759,12 +671,10 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pygments",
     deps = [requirement("pygments")],
 )
-
 
 py_library(
     name = "pyhamcrest",
@@ -774,24 +684,20 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pymongo",
     deps = [requirement("pymongo")],
 )
-
 
 py_library(
     name = "pyparsing",
     deps = [requirement("pyparsing")],
 )
 
-
 py_library(
     name = "pyrsistent",
     deps = [requirement("pyrsistent")],
 )
-
 
 py_library(
     name = "pytest",
@@ -808,7 +714,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pytest-forked",
     deps = [
@@ -818,7 +723,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pytest-timeout",
     deps = [
@@ -826,7 +730,6 @@ py_library(
         requirement("pytest-timeout"),
     ],
 )
-
 
 py_library(
     name = "pytest-xdist",
@@ -839,7 +742,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "python-dateutil",
     deps = [
@@ -848,24 +750,20 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "pytz",
     deps = [requirement("pytz")],
 )
-
 
 py_library(
     name = "pyyaml",
     deps = [requirement("pyyaml")],
 )
 
-
 py_library(
     name = "pyzmq",
     deps = [requirement("pyzmq")],
 )
-
 
 py_library(
     name = "requests",
@@ -878,7 +776,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "requests-mock",
     deps = [
@@ -887,7 +784,6 @@ py_library(
         requirement("requests-mock"),
     ],
 )
-
 
 py_library(
     name = "requests-oauthlib",
@@ -898,7 +794,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "rsa",
     deps = [
@@ -907,24 +802,20 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "send2trash",
     deps = [requirement("send2trash")],
 )
-
 
 py_library(
     name = "setuptools",
     deps = [requirement("setuptools")],
 )
 
-
 py_library(
     name = "six",
     deps = [requirement("six")],
 )
-
 
 py_library(
     name = "sqlalchemy",
@@ -934,7 +825,6 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "tenacity",
     deps = [
@@ -942,7 +832,6 @@ py_library(
         requirement("tenacity"),
     ],
 )
-
 
 py_library(
     name = "tensorboard",
@@ -964,18 +853,15 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "tensorboard-data-server",
     deps = [requirement("tensorboard-data-server")],
 )
 
-
 py_library(
     name = "tensorboard-plugin-wit",
     deps = [requirement("tensorboard-plugin-wit")],
 )
-
 
 py_library(
     name = "tensorflow",
@@ -1004,18 +890,15 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "tensorflow-estimator",
     deps = [requirement("tensorflow-estimator")],
 )
 
-
 py_library(
     name = "termcolor",
     deps = [requirement("termcolor")],
 )
-
 
 py_library(
     name = "terminado",
@@ -1025,7 +908,6 @@ py_library(
         requirement("terminado"),
     ],
 )
-
 
 py_library(
     name = "testcontainers",
@@ -1037,69 +919,57 @@ py_library(
     ],
 )
 
-
 py_library(
     name = "testpath",
     deps = [requirement("testpath")],
 )
-
 
 py_library(
     name = "tornado",
     deps = [requirement("tornado")],
 )
 
-
 py_library(
     name = "traitlets",
     deps = [requirement("traitlets")],
 )
-
 
 py_library(
     name = "typing-extensions",
     deps = [requirement("typing-extensions")],
 )
 
-
 py_library(
     name = "urllib3",
     deps = [requirement("urllib3")],
 )
-
 
 py_library(
     name = "wcwidth",
     deps = [requirement("wcwidth")],
 )
 
-
 py_library(
     name = "webencodings",
     deps = [requirement("webencodings")],
 )
-
 
 py_library(
     name = "websocket-client",
     deps = [requirement("websocket-client")],
 )
 
-
 py_library(
     name = "werkzeug",
     deps = [requirement("werkzeug")],
 )
-
 
 py_library(
     name = "wheel",
     deps = [requirement("wheel")],
 )
 
-
 py_library(
     name = "wrapt",
     deps = [requirement("wrapt")],
 )
-
