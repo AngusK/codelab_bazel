@@ -18,6 +18,7 @@ py_binary(
     srcs = ["greeter_server.py"],
     deps = [
         ":hello_world_py_proto",
+        "//third_party/py:absl-py",
     ]
 )
 
