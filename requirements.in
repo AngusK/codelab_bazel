@@ -1,3 +1,4 @@
+absl-py==0.15.0
 notebook==6.4.3
 protobuf==3.18.0
 tensorflow==2.6.0
