@@ -32,3 +32,14 @@ py3_image(
     base = ":grpc_base_image_with_python",
     main = "//examples/grpc:greeter_server.py",
 )
+
+py3_image(
+    name = "greeter_client_image",
+    srcs = ["//examples/grpc:greeter_client.py"],
+    deps = [
+        "//examples/grpc:hello_world_py_proto",
+        "//third_party/py:absl-py",
+    ],
+    base = ":grpc_base_image_with_python",
+    main = "//examples/grpc:greeter_client.py",
+)
