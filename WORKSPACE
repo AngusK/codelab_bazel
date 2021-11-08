@@ -196,3 +196,12 @@ load(
 )
 
 _java_image_repos()
+
+load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
+
+container_pull(
+    name = "grpc_base",
+    registry = "index.docker.io",
+    repository = "library/python",
+    tag = "3.9-slim-bullseye",
+)
