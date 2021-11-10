@@ -28,6 +28,7 @@ py3_image(
     deps = [
         "//examples/grpc:hello_world_py_proto",
         "//third_party/py:absl-py",
+        "//third_party/py:grpcio",
     ],
     base = ":grpc_base_image_with_python",
     main = "//examples/grpc:greeter_server.py",
@@ -39,6 +40,7 @@ py3_image(
     deps = [
         "//examples/grpc:hello_world_py_proto",
         "//third_party/py:absl-py",
+        "//third_party/py:grpcio",
     ],
     base = ":grpc_base_image_with_python",
     main = "//examples/grpc:greeter_client.py",
