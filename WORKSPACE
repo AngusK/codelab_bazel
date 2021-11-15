@@ -12,6 +12,34 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_python/releases/download/0.5.0/rules_python-0.5.0.tar.gz",
 )
 
+##################################################################################
+#############     Hermetic Python toolchain                          #############
+##################################################################################
+http_archive(
+    name = "python3.8.3_interpreter",
+    urls = ["https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tar.xz"],
+    sha256 = "dfab5ec723c218082fe3d5d7ae17ecbdebffa9a1aea4d64aa3a2ecdd2e795864",
+    strip_prefix = "Python-3.8.3",
+    patch_cmds = [
+        "mkdir $(pwd)/python3.8.3_install",
+				"./configure --prefix=$(pwd)/python3.8.3_install",
+        "make",
+        "make install",
+        "ln -s python3.8.3_install/bin/python3 python_bin",
+    ],
+    build_file_content = """
+exports_files(["python_bin"])
+filegroup(
+    name = "files",
+    srcs = glob(["python3.8.3_install/**"], exclude = ["**/* *"]),
+    visibility = ["//visibility:public"],
+)
+""",
+)
+
+register_toolchains("//toolchain:py")
+
+
 load("@rules_python//python:pip.bzl", "pip_parse")
 
 # Create a central repo that knows about the dependencies needed from
@@ -19,6 +47,7 @@ load("@rules_python//python:pip.bzl", "pip_parse")
 pip_parse(
     name = "pip_deps",
     requirements_lock = "//:requirements_lock.txt",
+		python_interpreter_target = "@python3.8.3_interpreter//:python_bin",
 )
 
 # Load the starlark macro which will define your dependencies.
