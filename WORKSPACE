@@ -28,7 +28,8 @@ http_archive(
         "ln -s python3.8.3_install/bin/python3 python_bin",
     ],
     build_file_content = """
-exports_files(["python_bin"])
+#exports_files(["python_bin"])
+exports_files(["python3.8.3_install/bin/python3"])
 filegroup(
     name = "files",
     srcs = glob(["python3.8.3_install/**"], exclude = ["**/* *"]),
@@ -37,7 +38,7 @@ filegroup(
 """,
 )
 
-register_toolchains("//toolchain:py")
+register_toolchains("//toolchain:python_interpreter")
 
 
 load("@rules_python//python:pip.bzl", "pip_parse")
@@ -47,7 +48,7 @@ load("@rules_python//python:pip.bzl", "pip_parse")
 pip_parse(
     name = "pip_deps",
     requirements_lock = "//:requirements_lock.txt",
-		python_interpreter_target = "@python3.8.3_interpreter//:python_bin",
+		python_interpreter_target = "@python3.8.3_interpreter//:python3.8.3_install/bin/python3",
 )
 
 # Load the starlark macro which will define your dependencies.
