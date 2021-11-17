@@ -88,44 +88,25 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 gazelle_dependencies()
 
 ##################################################################################
-#############     Loading rules_proto_grpc                           #############
+#############     Loading rules_grpc_grpc                            #############
 ##################################################################################
 
-## See https://rules-proto-grpc.aliddell.com/en/latest/index.html
-
 http_archive(
-    name = "rules_proto_grpc",
-    sha256 = "7954abbb6898830cd10ac9714fbcacf092299fda00ed2baf781172f545120419",
-    strip_prefix = "rules_proto_grpc-3.1.1",
-    urls = ["https://github.com/rules-proto-grpc/rules_proto_grpc/archive/3.1.1.tar.gz"],
+    name = "com_github_grpc_grpc",
+    #sha256 = 
+    strip_prefix = "grpc-1.41.1",
+    urls = ["https://github.com/grpc/grpc/archive/refs/tags/v1.41.1.tar.gz"],
 )
 
-load("@rules_proto_grpc//:repositories.bzl", "rules_proto_grpc_repos", "rules_proto_grpc_toolchains")
 
-rules_proto_grpc_toolchains()
-
-rules_proto_grpc_repos()
-
-load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-
-rules_proto_dependencies()
-
-rules_proto_toolchains()
-
-## Java support
-load("@rules_proto_grpc//java:repositories.bzl", rules_proto_grpc_java_repos = "java_repos")
-
-rules_proto_grpc_java_repos()
-
-## Python support
-load("@rules_proto_grpc//python:repositories.bzl", rules_proto_grpc_python_repos = "python_repos")
-
-rules_proto_grpc_python_repos()
-
-## GRPC support
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
 
 grpc_deps()
+
+load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
+
+grpc_extra_deps()
+
 
 ##################################################################################
 #############     Loading JVM Rules - Maven                          #############

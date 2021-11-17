@@ -1,5 +1,4 @@
-load("@rules_proto_grpc//python:defs.bzl", "python_proto_library")
-load("@rules_proto_grpc//java:defs.bzl", "java_proto_library")
+load("@com_github_grpc_grpc//bazel:python_rules.bzl", "py_grpc_library", "py_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(default_visibility = ["//examples:__subpackages__"])
@@ -23,23 +22,29 @@ proto_library(
     ],
 )
 
-java_proto_library(
-    name = "address_java_proto",
-    protos = [":address_proto"],
-)
+#java_proto_library(
+#    name = "address_java_proto",
+#    protos = [":address_proto"],
+#)
+#
+#java_proto_library(
+#    name = "person_java_proto",
+#    protos = [
+#        ":person_proto",
+#        ":address_proto",
+#    ],
+#)
 
-java_proto_library(
-    name = "person_java_proto",
-    protos = [
-        ":person_proto",
+py_proto_library(
+    name = "address_py_pb2",
+    deps = [
         ":address_proto",
     ],
 )
 
-python_proto_library(
-    name = "py_protos",
-    protos = [
-        ":address_proto",
+py_proto_library(
+    name = "person_py_pb2",
+    deps = [
         ":person_proto",
     ],
 )
