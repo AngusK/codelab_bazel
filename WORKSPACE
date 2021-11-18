@@ -95,6 +95,7 @@ gazelle_dependencies()
 http_archive(
     name = "build_stack_rules_proto",
     strip_prefix = "rules_proto-1.0.0",
+    sha256 = "12a4a6f8c06b96e38f8576ded76d0b79bce13efd7560ed22134c2f433bc496ad",
     urls = ["https://github.com/stackb/rules_proto/archive/refs/tags/1.0.0.tar.gz"],
 )
 

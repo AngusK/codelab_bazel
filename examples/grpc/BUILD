@@ -34,7 +34,8 @@ py_binary(
     name = "greeter_client",
     srcs = ["greeter_client.py"],
     deps = [
-        ":hello_world_py_proto",
+        ":hello_world_py_pb2",
+        ":hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
     ]
 )
