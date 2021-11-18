@@ -92,6 +92,12 @@ gazelle_dependencies()
 ##################################################################################
 
 http_archive(
+    name = "build_stack_rules_proto",
+    strip_prefix = "rules_proto-1.0.0",
+    urls = ["https://github.com/stackb/rules_proto/archive/refs/tags/1.0.0.tar.gz"],
+)
+
+http_archive(
     name = "com_github_grpc_grpc",
     #sha256 = 
     strip_prefix = "grpc-1.41.1",

@@ -1,5 +1,6 @@
 load("@com_github_grpc_grpc//bazel:python_rules.bzl", "py_grpc_library", "py_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
 
 package(default_visibility = ["//examples:__subpackages__"])
 
@@ -34,6 +35,13 @@ proto_library(
 #        ":address_proto",
 #    ],
 #)
+
+proto_compile(
+    name = "address_proto_compile",
+    outputs = ["address_pb2.py"],
+    plugins = ["@build_stack_rules_proto//plugin/builtin:python"],
+    proto = "address_proto",
+)
 
 py_proto_library(
     name = "address_py_pb2",
