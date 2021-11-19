@@ -19,4 +19,7 @@ toolchain(
     name = "hermetic",
     toolchain = ":hermetic_runtime_pair_3.8.3",
     toolchain_type = "@bazel_tools//tools/python:toolchain_type",
+    target_compatible_with = [
+        "//platform/python_interpreter:hermetic",
+    ],
 )

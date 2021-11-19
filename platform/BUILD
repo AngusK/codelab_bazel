@@ -4,5 +4,7 @@ platform(
     name = "hermetic_python",
     constraint_values = [
         "//platform/python_interpreter:hermetic",
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
     ],
 )
