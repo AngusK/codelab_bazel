@@ -26,7 +26,8 @@ py3_image(
     name = "greeter_server_image",
     srcs = ["//examples/grpc:greeter_server.py"],
     deps = [
-        "//examples/grpc:hello_world_py_proto",
+        "//examples/grpc:hello_world_py_pb2",
+        "//examples/grpc:hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
         "//third_party/py:grpcio",
     ],
@@ -38,7 +39,8 @@ py3_image(
     name = "greeter_client_image",
     srcs = ["//examples/grpc:greeter_client.py"],
     deps = [
-        "//examples/grpc:hello_world_py_proto",
+        "//examples/grpc:hello_world_py_pb2",
+        "//examples/grpc:hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
         "//third_party/py:grpcio",
     ],
