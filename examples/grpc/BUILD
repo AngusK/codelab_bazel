@@ -27,6 +27,7 @@ py_binary(
         ":hello_world_py_pb2",
         ":hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
+        "//third_party/py:grpcio",
     ]
 )
 
@@ -37,6 +38,7 @@ py_binary(
         ":hello_world_py_pb2",
         ":hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
+        "//third_party/py:grpcio",
     ]
 )
 
