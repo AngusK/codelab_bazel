@@ -3,16 +3,6 @@ workspace(name = "bazel_tutorial")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 ##################################################################################
-#############     Loading rules_python                               #############
-##################################################################################
-
-http_archive(
-    name = "rules_python",
-    sha256 = "cd6730ed53a002c56ce4e2f396ba3b3be262fd7cb68339f0377a45e8227fe332",
-    url = "https://github.com/bazelbuild/rules_python/releases/download/0.5.0/rules_python-0.5.0.tar.gz",
-)
-
-##################################################################################
 #############     Hermetic Python toolchain                          #############
 ##################################################################################
 http_archive(
@@ -25,10 +15,8 @@ http_archive(
 				"./configure --prefix=$(pwd)/python3.8.3_install",
         "make",
         "make install",
-        "ln -s python3.8.3_install/bin/python3 python_bin",
     ],
     build_file_content = """
-#exports_files(["python_bin"])
 exports_files(["python3.8.3_install/bin/python3"])
 filegroup(
     name = "files",
@@ -38,7 +26,17 @@ filegroup(
 """,
 )
 
-register_toolchains("//toolchain:python_interpreter")
+##################################################################################
+#############     Loading rules_python                               #############
+##################################################################################
+
+http_archive(
+    name = "rules_python",
+    sha256 = "cd6730ed53a002c56ce4e2f396ba3b3be262fd7cb68339f0377a45e8227fe332",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.5.0/rules_python-0.5.0.tar.gz",
+)
+
+register_toolchains("//toolchain/python:hermetic")
 
 
 load("@rules_python//python:pip.bzl", "pip_parse")
@@ -75,33 +73,70 @@ go_rules_dependencies()
 
 go_register_toolchains(version = "1.16")
 
+#http_archive(
+#    name = "bazel_gazelle",
+#    sha256 = "62ca106be173579c0a167deb23358fdfe71ffa1e4cfdddf5582af26520f1c66f",
+#    urls = [
+#        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
+#        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
+#    ],
+#)
+#
+#load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+#
+#gazelle_dependencies()
+
+##################################################################################
+#############     Loading rules_proto                                #############
+##################################################################################
+
 http_archive(
-    name = "bazel_gazelle",
-    sha256 = "62ca106be173579c0a167deb23358fdfe71ffa1e4cfdddf5582af26520f1c66f",
+    name = "rules_proto",
+    sha256 = "66bfdf8782796239d3875d37e7de19b1d94301e8972b3cbd2446b332429b4df1",
+    strip_prefix = "rules_proto-4.0.0",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
     ],
 )
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+rules_proto_dependencies()
+rules_proto_toolchains()
 
-gazelle_dependencies()
+
+
+##################################################################################
+#############     Loading rules_protobuf                             #############
+##################################################################################
+
+# Branch: master
+# Commit: 7c95feba87ae269d09690fcebb18c77d8b8bcf6a
+# Date: 2021-11-16 02:17:58 +0000 UTC
+# URL: https://github.com/stackb/rules_proto/commit/7c95feba87ae269d09690fcebb18c77d8b8bcf6a
+#
+# V2 (#193)
+# Size: 885598 (886 kB)
+http_archive(
+    name = "build_stack_rules_proto",
+    sha256 = "1190c296a9f931343f70e58e5f6f9ee2331709be4e17001bb570e41237a6c497",
+    strip_prefix = "rules_proto-7c95feba87ae269d09690fcebb18c77d8b8bcf6a",
+    urls = ["https://github.com/stackb/rules_proto/archive/7c95feba87ae269d09690fcebb18c77d8b8bcf6a.tar.gz"],
+)
+
+register_toolchains("@build_stack_rules_proto//toolchain:standard")
+
+load("@build_stack_rules_proto//deps:core_deps.bzl", "core_deps")
+
+core_deps()
 
 ##################################################################################
 #############     Loading rules_grpc_grpc                            #############
 ##################################################################################
 
 http_archive(
-    name = "build_stack_rules_proto",
-    strip_prefix = "rules_proto-1.0.0",
-    sha256 = "12a4a6f8c06b96e38f8576ded76d0b79bce13efd7560ed22134c2f433bc496ad",
-    urls = ["https://github.com/stackb/rules_proto/archive/refs/tags/1.0.0.tar.gz"],
-)
-
-http_archive(
     name = "com_github_grpc_grpc",
-    #sha256 = 
+    sha256 = "12a4a6f8c06b96e38f8576ded76d0b79bce13efd7560ed22134c2f433bc496ad",
     strip_prefix = "grpc-1.41.1",
     urls = ["https://github.com/grpc/grpc/archive/refs/tags/v1.41.1.tar.gz"],
 )
@@ -120,18 +155,18 @@ grpc_extra_deps()
 #############     Loading JVM Rules - Maven                          #############
 ##################################################################################
 
-RULES_JVM_EXTERNAL_TAG = "2.8"
+#RULES_JVM_EXTERNAL_TAG = "2.8"
+#
+#RULES_JVM_EXTERNAL_SHA = "79c9850690d7614ecdb72d68394f994fef7534b292c4867ce5e7dec0aa7bdfad"
+#
+#http_archive(
+#    name = "rules_jvm_external",
+#    sha256 = RULES_JVM_EXTERNAL_SHA,
+#    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+#    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+#)
 
-RULES_JVM_EXTERNAL_SHA = "79c9850690d7614ecdb72d68394f994fef7534b292c4867ce5e7dec0aa7bdfad"
-
-http_archive(
-    name = "rules_jvm_external",
-    sha256 = RULES_JVM_EXTERNAL_SHA,
-    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
-)
-
-load("@rules_jvm_external//:defs.bzl", "maven_install")
+#load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 ##################################################################################
 #############     Loading junit5 test rules                          #############
@@ -141,37 +176,37 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 # support junit5.
 # Ref: (r5.8.0-RC1 branch)
 # https://github.com/junit-team/junit5-samples/tree/r5.8.0-RC1
-load(":junit5.bzl", "junit_jupiter_java_repositories", "junit_platform_java_repositories")
+#load(":junit5.bzl", "junit_jupiter_java_repositories", "junit_platform_java_repositories")
 
-JUNIT_JUPITER_VERSION = "5.8.0-RC1"
-
-JUNIT_PLATFORM_VERSION = "1.8.0-RC1"
-
-junit_jupiter_java_repositories(
-    version = JUNIT_JUPITER_VERSION,
-)
-
-junit_platform_java_repositories(
-    version = JUNIT_PLATFORM_VERSION,
-)
+#JUNIT_JUPITER_VERSION = "5.8.0-RC1"
+#
+#JUNIT_PLATFORM_VERSION = "1.8.0-RC1"
+#
+#junit_jupiter_java_repositories(
+#    version = JUNIT_JUPITER_VERSION,
+#)
+#
+#junit_platform_java_repositories(
+#    version = JUNIT_PLATFORM_VERSION,
+#)
 
 ##################################################################################
 #############     Loading Rules Rust                                 #############
 ##################################################################################
 
-http_archive(
-    name = "rules_rust",
-    sha256 = "531bdd470728b61ce41cf7604dc4f9a115983e455d46ac1d0c1632f613ab9fc3",
-    strip_prefix = "rules_rust-d8238877c0e552639d3e057aadd6bfcf37592408",
-    urls = [
-        # `main` branch as of 2021-08-23
-        "https://github.com/bazelbuild/rules_rust/archive/d8238877c0e552639d3e057aadd6bfcf37592408.tar.gz",
-    ],
-)
-
-load("@rules_rust//rust:repositories.bzl", "rust_repositories")
-
-rust_repositories()
+#http_archive(
+#    name = "rules_rust",
+#    sha256 = "531bdd470728b61ce41cf7604dc4f9a115983e455d46ac1d0c1632f613ab9fc3",
+#    strip_prefix = "rules_rust-d8238877c0e552639d3e057aadd6bfcf37592408",
+#    urls = [
+#        # `main` branch as of 2021-08-23
+#        "https://github.com/bazelbuild/rules_rust/archive/d8238877c0e552639d3e057aadd6bfcf37592408.tar.gz",
+#    ],
+#)
+#
+#load("@rules_rust//rust:repositories.bzl", "rust_repositories")
+#
+#rust_repositories()
 
 ##################################################################################
 #############     Loading Docker Rules                               #############

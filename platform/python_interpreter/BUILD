@@ -5,6 +5,6 @@ constraint_setting(
 )
 
 constraint_value(
-    name = "hermetic_python",
+    name = "hermetic",
     constraint_setting = "python_interpreter_type",
 )
