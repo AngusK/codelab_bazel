@@ -24,7 +24,7 @@ py_binary(
 py3_image(
     name = "image",
     srcs = ["main.py"],
-    base = "@my_py3_base//image",
+    base = "@python-3.9-slim-bullseye//image",
     main = "main.py",
     deps = [
         ":all_deps_library",
