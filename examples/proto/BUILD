@@ -1,4 +1,3 @@
-load("@com_github_grpc_grpc//bazel:python_rules.bzl", "py_grpc_library", "py_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
 
@@ -36,23 +35,36 @@ proto_library(
 #    ],
 #)
 
+################################
+# Python examples below
+################################
 proto_compile(
-    name = "address_py_pb2",
+    name = "address_proto_py_compile",
     outputs = ["address_pb2.py"],
     plugins = ["@build_stack_rules_proto//plugin/builtin:python"],
-    proto = "address_proto",
+    proto = ":address_proto",
 )
 
-#py_proto_library(
-#    name = "address_py_pb2",
-#    deps = [
-#        ":address_proto",
-#    ],
-#)
-
-py_proto_library(
-    name = "person_py_pb2",
+py_library(
+    name = "address_py_pb2",
+    srcs = ["address_pb2.py"],
     deps = [
-        ":person_proto",
-    ],
+        "//third_party/py:protobuf",
+    ]
+)
+
+proto_compile(
+    name = "person_proto_py_compile",
+    outputs = ["person_pb2.py"],
+    plugins = ["@build_stack_rules_proto//plugin/builtin:python"],
+    proto = ":person_proto",
+)
+
+py_library(
+    name = "person_py_pb2",
+    srcs = ["person_pb2.py"],
+    deps = [
+        ":address_py_pb2",
+        "//third_party/py:protobuf",
+    ]
 )

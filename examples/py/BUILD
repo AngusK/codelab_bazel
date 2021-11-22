@@ -1,7 +1,7 @@
 package(default_visibility = ["//examples/py:__subpackages__"])
 
-load("@io_bazel_rules_docker//python3:image.bzl", "py3_image")
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+load("@io_bazel_rules_docker//python3:image.bzl", "py3_image")
 
 filegroup(
     name = "srcs",
@@ -15,6 +15,7 @@ py_binary(
     srcs = ["bin.py"],
     deps = [
         ":lib",
+        "//examples/proto:person_py_pb2",
         "//examples/py/fibonacci",
     ],
 )
