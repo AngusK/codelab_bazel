@@ -42,26 +42,3 @@ py_library(
         "//third_party/py:grpcio"
     ],
 )
-
-py_binary(
-    name = "greeter_server",
-    srcs = ["greeter_server.py"],
-    deps = [
-        ":hello_world_py_pb2",
-        ":hello_world_py_pb2_grpc",
-        "//third_party/py:absl-py",
-        "//third_party/py:grpcio",
-    ]
-)
-
-py_binary(
-    name = "greeter_client",
-    srcs = ["greeter_client.py"],
-    deps = [
-        ":hello_world_py_pb2",
-        ":hello_world_py_pb2_grpc",
-        "//third_party/py:absl-py",
-        "//third_party/py:grpcio",
-    ]
-)
-
