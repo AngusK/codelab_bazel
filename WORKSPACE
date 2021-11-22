@@ -155,18 +155,18 @@ grpc_extra_deps()
 #############     Loading JVM Rules - Maven                          #############
 ##################################################################################
 
-#RULES_JVM_EXTERNAL_TAG = "2.8"
-#
-#RULES_JVM_EXTERNAL_SHA = "79c9850690d7614ecdb72d68394f994fef7534b292c4867ce5e7dec0aa7bdfad"
-#
-#http_archive(
-#    name = "rules_jvm_external",
-#    sha256 = RULES_JVM_EXTERNAL_SHA,
-#    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
-#    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
-#)
+RULES_JVM_EXTERNAL_TAG = "2.8"
 
-#load("@rules_jvm_external//:defs.bzl", "maven_install")
+RULES_JVM_EXTERNAL_SHA = "79c9850690d7614ecdb72d68394f994fef7534b292c4867ce5e7dec0aa7bdfad"
+
+http_archive(
+    name = "rules_jvm_external",
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 ##################################################################################
 #############     Loading junit5 test rules                          #############
@@ -176,19 +176,19 @@ grpc_extra_deps()
 # support junit5.
 # Ref: (r5.8.0-RC1 branch)
 # https://github.com/junit-team/junit5-samples/tree/r5.8.0-RC1
-#load(":junit5.bzl", "junit_jupiter_java_repositories", "junit_platform_java_repositories")
+load(":junit5.bzl", "junit_jupiter_java_repositories", "junit_platform_java_repositories")
 
-#JUNIT_JUPITER_VERSION = "5.8.0-RC1"
-#
-#JUNIT_PLATFORM_VERSION = "1.8.0-RC1"
-#
-#junit_jupiter_java_repositories(
-#    version = JUNIT_JUPITER_VERSION,
-#)
-#
-#junit_platform_java_repositories(
-#    version = JUNIT_PLATFORM_VERSION,
-#)
+JUNIT_JUPITER_VERSION = "5.8.0-RC1"
+
+JUNIT_PLATFORM_VERSION = "1.8.0-RC1"
+
+junit_jupiter_java_repositories(
+    version = JUNIT_JUPITER_VERSION,
+)
+
+junit_platform_java_repositories(
+    version = JUNIT_PLATFORM_VERSION,
+)
 
 ##################################################################################
 #############     Loading Rules Rust                                 #############

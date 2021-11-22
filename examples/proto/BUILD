@@ -37,18 +37,18 @@ proto_library(
 #)
 
 proto_compile(
-    name = "address_proto_compile",
+    name = "address_py_pb2",
     outputs = ["address_pb2.py"],
     plugins = ["@build_stack_rules_proto//plugin/builtin:python"],
     proto = "address_proto",
 )
 
-py_proto_library(
-    name = "address_py_pb2",
-    deps = [
-        ":address_proto",
-    ],
-)
+#py_proto_library(
+#    name = "address_py_pb2",
+#    deps = [
+#        ":address_proto",
+#    ],
+#)
 
 py_proto_library(
     name = "person_py_pb2",
