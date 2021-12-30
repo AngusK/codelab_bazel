@@ -1,14 +1,8 @@
 package(default_visibility = ["//examples/py:__subpackages__"])
 
+load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 load("@io_bazel_rules_docker//python3:image.bzl", "py3_image")
-
-filegroup(
-    name = "srcs",
-    srcs = glob(["*.py"]) + [
-        "BUILD",
-    ],
-)
 
 py_binary(
     name = "bin",
@@ -40,35 +34,45 @@ py_test(
     deps = [":lib"],
 )
 
+py_binary(
+    name = "greeter_server",
+    srcs = ["greeter_server.py"],
+    deps = [
+        "//examples/grpc:hello_world_py_pb2",
+        "//examples/grpc:hello_world_py_pb2_grpc",
+        "//third_party/py:absl-py",
+        "//third_party/py:grpcio",
+    ]
+)
+
+py_binary(
+    name = "greeter_client",
+    srcs = ["greeter_client.py"],
+    deps = [
+        "//examples/grpc:hello_world_py_pb2",
+        "//examples/grpc:hello_world_py_pb2_grpc",
+        "//third_party/py:absl-py",
+        "//third_party/py:grpcio",
+    ]
+)
+
 py3_image(
-    name = "bin_image",
-    srcs = ["bin.py"],
-    deps = [":lib",
-            "//examples/py/fibonacci"],
-    main = "bin.py",
+    name = "greeter_server_image",
+    srcs = ["greeter_server.py"],
+    deps = [
+        "//examples/grpc:hello_world_py_pb2",
+        "//examples/grpc:hello_world_py_pb2_grpc",
+        "//third_party/py:absl-py",
+        "//third_party/py:grpcio",
+    ],
+    main = "greeter_server.py",
 )
 
 container_push(
-    name = "push_bin_image",
-    image = ":bin_image",
+    name = "push_greeter_server",
+    image = ":greeter_server_image",
     format = "Docker",
     registry = "localhost:5000",
     repository = "codelab_bazel/py_example_image",
     tag = "dev"
-)
-
-py3_image(
-    name = "fail_image",
-    srcs = ["fail.py"],
-    deps = [":lib"],
-    main = "fail.py",
-)
-
-container_push(
-    name = "push_fail_image",
-    image = ":fail_image",
-    format = "Docker",
-    registry = "localhost:5000",
-    repository = "codelab_bazel/py_example_fail_image",
-    tag = "test"
 )
