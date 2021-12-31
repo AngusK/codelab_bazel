@@ -28,12 +28,6 @@ py_test(
     ],
 )
 
-py_test(
-    name = "fail",
-    srcs = ["fail.py"],
-    deps = [":lib"],
-)
-
 py_binary(
     name = "greeter_server",
     srcs = ["greeter_server.py"],
@@ -42,7 +36,7 @@ py_binary(
         "//examples/grpc:hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
         "//third_party/py:grpcio",
-    ]
+    ],
 )
 
 py_binary(
@@ -53,26 +47,26 @@ py_binary(
         "//examples/grpc:hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
         "//third_party/py:grpcio",
-    ]
+    ],
 )
 
 py3_image(
     name = "greeter_server_image",
     srcs = ["greeter_server.py"],
+    main = "greeter_server.py",
     deps = [
         "//examples/grpc:hello_world_py_pb2",
         "//examples/grpc:hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
         "//third_party/py:grpcio",
     ],
-    main = "greeter_server.py",
 )
 
 container_push(
     name = "push_greeter_server",
-    image = ":greeter_server_image",
     format = "Docker",
+    image = ":greeter_server_image",
     registry = "localhost:5000",
     repository = "codelab_bazel/py_example_image",
-    tag = "dev"
+    tag = "dev",
 )
