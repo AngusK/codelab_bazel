@@ -7,9 +7,9 @@ from absl import flags
 from absl import logging
 
 import grpc
+from examples.grpc import person_pb2
 from examples.grpc import hello_world_pb2
 from examples.grpc import hello_world_pb2_grpc
-
 
 FLAGS = flags.FLAGS
 
@@ -23,11 +23,12 @@ def run(port: int, name: str):
     # of the code.
     host_port = 'localhost:%d' % port
     logging.info('Connecting to %s' % host_port)
+    person = person_pb2.Person()
+    person.name = name
     with grpc.insecure_channel(host_port) as channel:
         stub = hello_world_pb2_grpc.GreeterStub(channel)
-        response = stub.SayHello(hello_world_pb2.HelloRequest(name=name))
+        response = stub.SayHello(hello_world_pb2.HelloRequest(person=person))
     print("Greeter client received: " + response.message)
-
 
 
 def main(argv):
@@ -36,4 +37,3 @@ def main(argv):
 
 if __name__ == '__main__':
     app.run(main)
-

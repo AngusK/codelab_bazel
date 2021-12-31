@@ -12,7 +12,6 @@ import grpc
 from examples.grpc import hello_world_pb2
 from examples.grpc import hello_world_pb2_grpc
 
-
 FLAGS = flags.FLAGS
 
 flags.DEFINE_integer('port', 50051, 'GRPC server port to listen on.')
@@ -20,7 +19,8 @@ flags.DEFINE_integer('port', 50051, 'GRPC server port to listen on.')
 
 class Greeter(hello_world_pb2_grpc.GreeterServicer):
     def SayHello(self, request, context):
-        return hello_world_pb2.HelloReply(message='Hello, %s!' % request.name)
+        return hello_world_pb2.HelloReply(message='Hello, %s!' %
+                                          request.person.name)
 
 
 def serve(port: int):
@@ -38,4 +38,3 @@ def main(argv):
 
 if __name__ == '__main__':
     app.run(main)
-
