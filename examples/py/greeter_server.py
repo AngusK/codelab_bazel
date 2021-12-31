@@ -12,6 +12,7 @@ import grpc
 from examples.grpc import hello_world_pb2
 from examples.grpc import hello_world_pb2_grpc
 
+from google.protobuf import timestamp_pb2
 
 FLAGS = flags.FLAGS
 
@@ -20,7 +21,11 @@ flags.DEFINE_integer('port', 50051, 'GRPC server port to listen on.')
 
 class Greeter(hello_world_pb2_grpc.GreeterServicer):
     def SayHello(self, request, context):
-        return hello_world_pb2.HelloReply(message='Hello, %s!' % request.name)
+        timestamp_now = timestamp_pb2.Timestamp()
+        timestamp_now.GetCurrentTime()
+        return hello_world_pb2.HelloReply(message='Hello, %s!' %
+                                          request.person.name,
+                                          timestamp=timestamp_now)
 
 
 def serve(port: int):
@@ -38,4 +43,3 @@ def main(argv):
 
 if __name__ == '__main__':
     app.run(main)
-

@@ -1,5 +1,15 @@
 syntax = "proto3";
 option java_multiple_files = true;
+// option go_package = "github.com/AngusK/codelab_bazel/examples/grpc";
+
+// Always import protos with a full path relative to the WORKSPACE file.
+import "examples/grpc/person.proto";
+
+// Well known protos should be imported with full path relative to
+// @com_google_protobuf.
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
 
 package examples.grpc; // Requried to generate valid code.
 
@@ -12,11 +22,17 @@ service Greeter {
 }
 
 // The request message containing the user's name.
+// Next ID: 3
 message HelloRequest {
-  string name = 1;
+  Person person = 1;
+  google.protobuf.Any misc_info = 2;
 }
 
 // The response message containing the greetings
+// Next ID: 3
 message HelloReply {
   string message = 1;
+
+  // The server will return the timestamp when this response is generated.
+  google.protobuf.Timestamp timestamp = 2;
 }
