@@ -37,6 +37,19 @@ py_test(
     ],
 )
 
+py_library(
+    name = "greeter_service",
+    srcs = ["greeter_service.py"],
+    target_compatible_with = [
+        "//platforms/python_interpreter:hermetic",
+    ],
+    deps = [
+        "//examples/grpc:hello_world_py_pb2",
+        "//examples/grpc:hello_world_py_pb2_grpc",
+        "//third_party/py:absl-py",
+    ],
+)
+
 py_binary(
     name = "greeter_server",
     srcs = ["greeter_server.py"],
@@ -44,7 +57,7 @@ py_binary(
         "//platforms/python_interpreter:hermetic",
     ],
     deps = [
-        "//examples/grpc:hello_world_py_pb2",
+        ":greeter_service",
         "//examples/grpc:hello_world_py_pb2_grpc",
         "//third_party/py:absl-py",
         "//third_party/py:grpcio",
