@@ -1,0 +1,3 @@
+build --platforms=//platform:hermetic_python
+run --platforms=//platform:hermetic_python
+test --platforms=//platform:hermetic_python
