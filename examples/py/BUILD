@@ -7,6 +7,9 @@ load("@io_bazel_rules_docker//python3:image.bzl", "py3_image")
 py_binary(
     name = "bin",
     srcs = ["bin.py"],
+    target_compatible_with = [
+        "//platforms/python_interpreter:hermetic",
+    ],
     deps = [
         ":lib",
         "//examples/proto:person_py_pb2",
@@ -17,11 +20,17 @@ py_binary(
 py_library(
     name = "lib",
     srcs = ["lib.py"],
+    target_compatible_with = [
+        "//platforms/python_interpreter:hermetic",
+    ],
 )
 
 py_test(
     name = "test",
     srcs = ["test.py"],
+    target_compatible_with = [
+        "//platforms/python_interpreter:hermetic",
+    ],
     deps = [
         ":lib",
         "//examples/py/fibonacci",
@@ -31,6 +40,9 @@ py_test(
 py_binary(
     name = "greeter_server",
     srcs = ["greeter_server.py"],
+    target_compatible_with = [
+        "//platforms/python_interpreter:hermetic",
+    ],
     deps = [
         "//examples/grpc:hello_world_py_pb2",
         "//examples/grpc:hello_world_py_pb2_grpc",
@@ -42,6 +54,9 @@ py_binary(
 py_binary(
     name = "greeter_client",
     srcs = ["greeter_client.py"],
+    target_compatible_with = [
+        "//platforms/python_interpreter:hermetic",
+    ],
     deps = [
         "//examples/grpc:hello_world_py_pb2",
         "//examples/grpc:hello_world_py_pb2_grpc",
