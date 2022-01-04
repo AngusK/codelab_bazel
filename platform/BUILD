@@ -12,4 +12,7 @@ platform(
 py_test(
     name = "version_test",
     srcs = ["version_test.py"],
+    target_compatible_with = [
+        "//platform/python_interpreter:hermetic",
+    ],
 )
