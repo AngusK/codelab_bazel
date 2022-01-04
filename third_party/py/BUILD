@@ -258,6 +258,15 @@ py_library(
 )
 
 py_library(
+    name = "grpcio-testing",
+    deps = [
+        ":grpcio",
+        ":protobuf",
+        requirement("grpcio-testing"),
+    ],
+)
+
+py_library(
     name = "h5py",
     deps = [
         ":numpy",
