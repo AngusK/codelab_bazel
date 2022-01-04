@@ -295,6 +295,10 @@ greenlet==1.1.1 \
     --hash=sha256:f253dad38605486a4590f9368ecbace95865fea0f2b66615d121ac91fd1a1563 \
     --hash=sha256:fddfb31aa2ac550b938d952bca8a87f1db0f8dc930ffa14ce05b5c08d27e7fd1
     # via sqlalchemy
+grpcio-testing==1.40.0 \
+    --hash=sha256:2801214866cbeb36f2cfef46484e55d03e313deef0f56e652e11f0a224adb476 \
+    --hash=sha256:691634d35d8715434eee37b034540a32fc05443a36eaeff737792a145c470ffb
+    # via -r requirements.in
 grpcio==1.40.0 \
     --hash=sha256:005fe14e67291498989da67d454d805be31d57a988af28ed3a2a0a7cabb05c53 \
     --hash=sha256:1708a0ba90c798b4313f541ffbcc25ed47e790adaafb02111204362723dabef0 \
@@ -343,6 +347,7 @@ grpcio==1.40.0 \
     # via
     #   -r requirements.in
     #   apache-beam
+    #   grpcio-testing
     #   tensorboard
     #   tensorflow
 h5py==3.1.0 \
@@ -724,6 +729,7 @@ protobuf==3.18.0 \
     # via
     #   -r requirements.in
     #   apache-beam
+    #   grpcio-testing
     #   tensorboard
     #   tensorflow
 psycopg2-binary==2.9.1 \

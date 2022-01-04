@@ -4,3 +4,4 @@ protobuf==3.18.0
 tensorflow==2.6.0
 apache-beam[test]==2.32.0
 grpcio==1.40.0
+grpcio-testing==1.40.0
