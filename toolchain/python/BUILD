@@ -1,4 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_runtime", "py_runtime_pair")
+
 package(default_visibility = ["//visibility:public"])
 
 py_runtime(
@@ -17,9 +18,9 @@ py_runtime_pair(
 
 toolchain(
     name = "hermetic",
+    target_compatible_with = [
+        "//platforms/python_interpreter:hermetic",
+    ],
     toolchain = ":hermetic_runtime_pair_3.8.3",
     toolchain_type = "@bazel_tools//tools/python:toolchain_type",
-    target_compatible_with = [
-        "//platform/python_interpreter:hermetic",
-    ],
 )
