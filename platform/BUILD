@@ -8,3 +8,8 @@ platform(
         "@platforms//cpu:x86_64",
     ],
 )
+
+py_test(
+    name = "version_test",
+    srcs = ["version_test.py"],
+)
