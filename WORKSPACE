@@ -7,15 +7,6 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 ##################################################################################
 http_archive(
     name = "python3.8.3_interpreter",
-    urls = ["https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tar.xz"],
-    sha256 = "dfab5ec723c218082fe3d5d7ae17ecbdebffa9a1aea4d64aa3a2ecdd2e795864",
-    strip_prefix = "Python-3.8.3",
-    patch_cmds = [
-        "mkdir $(pwd)/python3.8.3_install",
-				"./configure --prefix=$(pwd)/python3.8.3_install",
-        "make",
-        "make install",
-    ],
     build_file_content = """
 exports_files(["python3.8.3_install/bin/python3"])
 filegroup(
@@ -24,6 +15,15 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 """,
+    patch_cmds = [
+        "mkdir $(pwd)/python3.8.3_install",
+        "./configure --prefix=$(pwd)/python3.8.3_install",
+        "make",
+        "make install",
+    ],
+    sha256 = "dfab5ec723c218082fe3d5d7ae17ecbdebffa9a1aea4d64aa3a2ecdd2e795864",
+    strip_prefix = "Python-3.8.3",
+    urls = ["https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tar.xz"],
 )
 
 ##################################################################################
@@ -38,15 +38,14 @@ http_archive(
 
 register_toolchains("//toolchain/python:hermetic")
 
-
 load("@rules_python//python:pip.bzl", "pip_parse")
 
 # Create a central repo that knows about the dependencies needed from
 # requirements_lock.txt.
 pip_parse(
     name = "pip_deps",
+    python_interpreter_target = "@python3.8.3_interpreter//:python3.8.3_install/bin/python3",
     requirements_lock = "//:requirements_lock.txt",
-		python_interpreter_target = "@python3.8.3_interpreter//:python3.8.3_install/bin/python3",
 )
 
 # Load the starlark macro which will define your dependencies.
@@ -101,10 +100,10 @@ http_archive(
 )
 
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+
 rules_proto_dependencies()
+
 rules_proto_toolchains()
-
-
 
 ##################################################################################
 #############     Loading rules_protobuf                             #############
@@ -141,7 +140,6 @@ http_archive(
     urls = ["https://github.com/grpc/grpc/archive/refs/tags/v1.41.1.tar.gz"],
 )
 
-
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
 
 grpc_deps()
@@ -149,7 +147,6 @@ grpc_deps()
 load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 
 grpc_extra_deps()
-
 
 ##################################################################################
 #############     Loading JVM Rules - Maven                          #############
