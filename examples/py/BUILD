@@ -1,4 +1,4 @@
-package(default_visibility = ["//examples/py:__subpackages__"])
+package(default_visibility = ["//examples:__subpackages__"])
 
 load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")
