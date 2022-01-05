@@ -28,6 +28,7 @@ py3_image(
     deps = [
         "//examples/grpc:hello_world_py_pb2",
         "//examples/grpc:hello_world_py_pb2_grpc",
+        "//examples/py:greeter_service",
         "//third_party/py:absl-py",
         "//third_party/py:grpcio",
     ],
