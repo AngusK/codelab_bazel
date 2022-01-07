@@ -5,6 +5,11 @@ load("@pip_deps//:requirements.bzl", "requirement")
 
 package(default_visibility = ["//visibility:public"])
 
+# Expose this so it can be updated by "bazel run //third_party:update_py_build" command
+exports_files([
+    "BUILD",
+])
+
 py_library(
     name = "absl-py",
     deps = [

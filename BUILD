@@ -8,3 +8,6 @@ compile_pip_requirements(
     requirements_in = "requirements.in",
     requirements_txt = "requirements_lock.txt",
 )
+
+# Export this file so the tool under third_party can read as input.
+exports_files(["requirements_lock.txt"])
