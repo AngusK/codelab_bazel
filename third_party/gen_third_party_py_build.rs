@@ -5,9 +5,7 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-
 fn main() {
-
     let args: Vec<String> = env::args().collect();
     if args.len() == 1 {
         println!("Usage: {} <path to requirements_lock.txt>", args[0]);
@@ -24,32 +22,29 @@ fn main() {
         Ok(pkg_deps) => pkg_deps,
     };
 
-    println!(
-        r###"load("@pip_deps//:requirements.bzl", "requirement")
+    let mut build_file_content: String = r###"load("@pip_deps//:requirements.bzl", "requirement")
 
 # Third-party python package dependencies.
 # This file is auto-generated.
 
-package(default_visibility = ["//visibility:public"])"###);
+package(default_visibility = ["//visibility:public"])"###
+        .to_owned();
     for (pkg, deps) in pkg_deps.iter() {
-        println!(
-            r###"
-py_library(
-    name = "{}","###,
-            pkg
-        );
+        build_file_content.push_str(&format!("\npy_library(\n    name = \"{}\",\n", pkg));
         if deps.is_empty() {
-            println!(r###"    deps = [requirement("{}")],"###, pkg);
+            build_file_content.push_str(&format!("    deps = [requirement(\"{}\")],\n", pkg));
         } else {
-            println!(r###"    deps = ["###);
+            build_file_content.push_str("    deps = [\n");
             for dep in deps {
-                println!(r###"        ":{}","###, dep);
+                build_file_content.push_str(&format!("        \":{}\",\n", dep));
             }
-            println!(r###"        requirement("{}"),"###, pkg);
-            println!(r###"    ],"###);
+            build_file_content.push_str(&format!("        requirement(\"{}\"),\n", pkg));
+            build_file_content.push_str("    ],\n");
         }
-        println!(")");
+        build_file_content.push_str(")\n");
     }
+
+    print!("{}", build_file_content);
 }
 
 fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, String> {
