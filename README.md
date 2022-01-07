@@ -45,14 +45,14 @@ to run ```pip-compile``` to update ```requirements_lock.txt```.
 The dependencies between the packages is already stated in ```requirements_lock.txt``` but they are not
 automatically pulled in. To solve this issue, the
 [third_party/py/BUILD](https://github.com/AngusK/codelab_bazel/blob/angus-add-python-part-docs/third_party/py/BUILD)
-is a layer to manage the inter-package dependencies. For example, if one adds "absl-py" package directly
+is a layer to manage the inter-package dependencies. For example, if one adds ```absl-py``` package directly
 as designed by rules_python:
 ```
 deps = [
     requirement("absl-py"),
 ],
 ```
-, the package 'absl-py' depends on also needs to be add:
+, the package ```six``` which is used by ```absl-py``` also needs to be added:
 ```
 deps = [
     requirement("absl-py"),
@@ -68,7 +68,7 @@ deps = [
     "//third_party/py:absl-py",
 ],
 ```
-The target "//third_party/py:absl-py" has all its dependency listed as:
+The target ```//third_party/py:absl-py``` has all its dependency listed as:
 ```
 py_library(
     name = "absl-py",
