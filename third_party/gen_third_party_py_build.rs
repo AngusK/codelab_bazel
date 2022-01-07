@@ -2,17 +2,26 @@ use std::collections::BTreeMap;
 use std::collections::BTreeSet;
 use std::env;
 use std::fs::File;
-use std::io::{self, BufRead};
+use std::io::{self, BufRead, Write};
 use std::path::Path;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    if args.len() == 1 {
-        println!("Usage: {} <path to requirements_lock.txt>", args[0]);
+    if args.len() == 2 {
+        println!(
+            "Usage: {} <path to requirements_lock.txt> <output BUILD file path>",
+            args[0]
+        );
         return;
     }
 
     let requirement_file: &String = &args[1];
+    let output_build_path = Path::new(&args[2]);
+    let output_path_display = output_build_path.display();
+    let mut output_build_file = match File::create(&output_build_path) {
+        Err(why) => panic!("Could not create {}: {}", output_path_display, why),
+        Ok(file) => file,
+    };
 
     let pkg_deps = match parse_pkg_deps(requirement_file) {
         Err(msg) => {
@@ -27,8 +36,14 @@ fn main() {
 # Third-party python package dependencies.
 # This file is auto-generated.
 
-package(default_visibility = ["//visibility:public"])"###
-        .to_owned();
+package(default_visibility = ["//visibility:public"])
+
+# Expose this so it can be updated by "bazel run //third_party:update_py_build" command
+exports_files([
+    "BUILD",
+])
+"###
+    .to_owned();
     for (pkg, deps) in pkg_deps.iter() {
         build_file_content.push_str(&format!("\npy_library(\n    name = \"{}\",\n", pkg));
         if deps.is_empty() {
@@ -44,7 +59,10 @@ package(default_visibility = ["//visibility:public"])"###
         build_file_content.push_str(")\n");
     }
 
-    print!("{}", build_file_content);
+    match output_build_file.write_all(build_file_content.as_bytes()) {
+        Err(why) => panic!("Error writing content to {}: {}", output_path_display, why),
+        Ok(_) => println!("Successfully updated {}", &args[2]),
+    };
 }
 
 fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, String> {
@@ -106,7 +124,7 @@ fn parse_pkg_deps(filename: &str) -> Result<BTreeMap<String, BTreeSet<String>>, 
         }
         Ok(pkg_deps)
     } else {
-        Err("Error reading file".to_string())
+        Err(format!("Error reading file {}", filename))
     }
 }
 
