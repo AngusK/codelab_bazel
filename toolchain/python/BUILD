@@ -7,6 +7,8 @@ py_runtime(
     files = ["@python3.8.3_interpreter//:files"],
     interpreter = "@python3.8.3_interpreter//:python3.8.3_install/bin/python3",
     python_version = "PY3",
+    # Add this line so you don't have to have a host Python installed.
+    stub_shebang = "#!../python3.8.3_interpreter/python3.8.3_install/bin/python3",
     visibility = ["//visibility:public"],
 )
 
