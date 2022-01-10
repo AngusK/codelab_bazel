@@ -31,7 +31,7 @@ deps = [
     requirement("absl-py"),
     requirement("six"),
 ],
-```.
+```
 This is not always easy to discover and you might run into run-time errors to find this out.
 
 To solve this issue, a layer to manage the inter-package dependencies is introduced at:
