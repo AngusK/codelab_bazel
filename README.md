@@ -34,9 +34,9 @@ See [platforms/version_test.py](https://github.com/AngusK/codelab_bazel/blob/mas
 
 ### Complete work flow
 
-- Update ```requirements.in```
-- Run ```bazel run //:requirements.update```
-- Run ```bazel run //third_party:udpate_py_build```
+1. Update ```requirements.in```
+1. Run ```bazel run //:requirements.update```
+1. Run ```bazel run //third_party:udpate_py_build```
 
 The Python package management has two parts: a) package downloading and b) dependency management.
 
