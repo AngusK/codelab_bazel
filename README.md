@@ -7,7 +7,8 @@ All code examples are put under [examples](https://github.com/AngusK/codelab_baz
 
 ## Python
 
-To see how to make Python work with Bazel nicely, check [Python with Bazel](docs/python_w_bazel.md).
+To see how to make Python work with Bazel nicely, check [Python with Bazel](docs/python_w_bazel.md)
+under ```docs/```.
 
 
 
