@@ -38,6 +38,28 @@ On Ubuntu you can try the following command:
 sudo apt install -y libreadline-gplv2-dev libbz2-dev libncursesw5-dev libgdbm-dev zlib1g-dev liblzma-dev libsqlite3-dev libssl-dev libffi-dev
 ```
 
+## The hermetic Python interpreter solution
+
+There are two parts:
+1. Creating a toolchain to use the hermetic Python interpreter.
+1. Using the toolchain.
+
+### Create the toolchain
+
+
+### Use the toolchain
+
+#### Skip the Python interpreter on the host
+
+Default shebang:
+```
+#!/usr/bin/env python
+```
+
+New shebang to use the hermetic Python interpreter:
+```
+#!../python3.8.3_interpreter/python3.8.3_install/bin/python3
+```
 
 
 A test was put to ensure the hermetic Python version fixed:
@@ -46,4 +68,3 @@ bazel test //platforms:version_test
 ```
 See [platforms/version_test.py](https://github.com/AngusK/codelab_bazel/blob/master/platforms/version_test.py).
 
-`.
