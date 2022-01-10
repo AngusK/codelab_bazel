@@ -7,6 +7,8 @@ All code examples are put under [examples](https://github.com/AngusK/codelab_baz
 
 ## Python
 
+Before you build/run any Python examples, check [Python with Bazel](docs/python_w_bazel.md).
+
 ### Python Toolchain
 
 This example shows how to use a "hermetic" Python interpreter. It's inspired by:
