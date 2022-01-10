@@ -32,6 +32,12 @@ See [platforms/version_test.py](https://github.com/AngusK/codelab_bazel/blob/mas
 
 ## Python package management
 
+### Complete work flow
+
+- Update ```requirements.in```
+- Run ```bazel run //:requirements.update```
+- Run ```bazel run //third_party:udpate_py_build```
+
 The Python package management has two parts: a) package downloading and b) dependency management.
 
 ### Package download
@@ -79,6 +85,10 @@ py_library(
     ],
 )
 ```
+
+
+The tool at ```third_party:update_py_build``` updates ```third_party/py/BUILD``` automatically per the content in
+```///:requirements_lock.txt```.
 
 
 ## Build the docker image of //examples/py:bin
