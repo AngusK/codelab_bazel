@@ -12,7 +12,8 @@ All code examples are put under [examples](https://github.com/AngusK/codelab_baz
 This example shows how to use a "hermetic" Python interpreter. It's inspired by:
 [Hermetic Python with Bazel](https://thethoughtfulkoala.com/posts/2020/05/16/bazel-hermetic-python.html)
 
-The hermetic Python interpreter can be used by ```--platforms=//platforms:hermetic_python``` flag. For example,
+The hermetic Python interpreter will be invoked by ```--platforms=//platforms:hermetic_python``` flag.
+For example,
 ```
 bazel run --platforms=//platforms:hermetic_python //examples/py:bin
 ```
