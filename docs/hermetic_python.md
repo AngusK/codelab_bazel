@@ -46,10 +46,16 @@ There are two parts:
 
 ### Create the toolchain
 
+(WIP)
+
 
 ### Use the toolchain
 
+(WIP)
+
 #### Skip the Python interpreter on the host
+
+(WIP)
 
 Default shebang:
 ```
