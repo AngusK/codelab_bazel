@@ -1,4 +1,4 @@
-workspace(name = "bazel_tutorial")
+workspace(name = "angusk_codelab_bazel")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
