@@ -135,9 +135,9 @@ core_deps()
 
 http_archive(
     name = "com_github_grpc_grpc",
-    sha256 = "12a4a6f8c06b96e38f8576ded76d0b79bce13efd7560ed22134c2f433bc496ad",
-    strip_prefix = "grpc-1.41.1",
-    urls = ["https://github.com/grpc/grpc/archive/refs/tags/v1.41.1.tar.gz"],
+    sha256 = "b74ce7d26fe187970d1d8e2c06a5d3391122f7bc1fdce569aff5e435fb8fe780",
+    strip_prefix = "grpc-1.43.2",
+    urls = ["https://github.com/grpc/grpc/archive/refs/tags/v1.43.2.tar.gz"],
 )
 
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
