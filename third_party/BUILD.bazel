@@ -7,10 +7,10 @@ rust_binary(
     srcs = ["gen_third_party_py_build.rs"],
     args = [
         "requirements_lock.txt",
-        "third_party/py/BUILD",
+        "third_party/py/BUILD.bazel",
     ],
     data = [
         "//:requirements_lock.txt",
-        "//third_party/py:BUILD",
+        "//third_party/py:BUILD.bazel",
     ],
 )

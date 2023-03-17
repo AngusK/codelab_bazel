@@ -7,7 +7,7 @@ package(default_visibility = ["//visibility:public"])
 
 # Expose this so it can be updated by "bazel run //third_party:update_py_build" command
 exports_files([
-    "BUILD",
+    "BUILD.bazel",
 ])
 
 py_library(
